@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('location');
+            $table->string('cuisine');
+            $table->string('image_url')->nullable();
+            $table->decimal('rating', 2, 1)->default(0);
+            $table->foreignId('owner_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
+
     }
 
     /**
