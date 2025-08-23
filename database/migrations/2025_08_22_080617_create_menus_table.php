@@ -11,10 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+       Schema::create('menus', function (Blueprint $table) {
+        $table->id();
+        
+        // Foreign keys
+        $table->foreignId('restaurant_id')->constrained()->onDelete('cascade');
+        $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
+        
+        // Menu details
+        $table->string('name');
+        $table->text('description')->nullable();
+        $table->decimal('price', 8, 2);
+        $table->string('image_url')->nullable();
+        $table->string('tags')->nullable(); 
+        
+        $table->timestamps();
+    });
     }
 
     /**
