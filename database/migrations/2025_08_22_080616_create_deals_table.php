@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('restaurant_id')->constrained()->onDelete('cascade');
+            $table->string('description');
+            $table->decimal('discount', 5, 2);
+            $table->dateTime('validity');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }
