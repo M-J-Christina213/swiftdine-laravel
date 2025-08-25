@@ -15,7 +15,7 @@ return new class extends Migration
         $table->id();
         
         // Foreign keys
-        $table->foreignId('restaurant_id')->constrained()->onDelete('cascade');
+        $table->foreignId('restaurant_id')->constrained('restaurants')->onDelete('cascade');
         $table->foreignId('category_id')->nullable()->constrained()->onDelete('set null');
         
         // Menu details
