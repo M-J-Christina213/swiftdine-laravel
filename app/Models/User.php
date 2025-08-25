@@ -64,4 +64,22 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // RELATIONSHIPS with the models
+    
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }

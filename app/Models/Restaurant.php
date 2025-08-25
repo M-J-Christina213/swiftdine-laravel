@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Restaurant extends Model
 {
-    //
+ 
+    public function menus()
+    {
+        return $this->hasMany(Menu::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
+
+
