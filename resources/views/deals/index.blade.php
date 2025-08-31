@@ -325,7 +325,7 @@ $locked_offers = [
 </section>
 
 <!-- Modal Container -->
-<div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+<div id="modalOverlay" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
   <div id="modalContent" class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative">
     <button onclick="closeModal()" class="absolute top-3 right-3 text-gray-500 hover:text-gray-800 text-2xl font-bold">&times;</button>
     <div id="modalBody">
