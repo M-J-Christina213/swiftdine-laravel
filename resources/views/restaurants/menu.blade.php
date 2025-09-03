@@ -61,23 +61,6 @@ if (isset($_POST['action'])) {
 }
 
 
-// Fetch all menu items
-$result = $conn->query("SELECT * FROM menus"); 
-if (!$result) {
-    die("Query failed: " . $conn->error);
-}
-$menus = [];
-while ($row = $result->fetch_assoc()) {
-    $menus[] = $row;
-}
-
-// Fetch cart items for current session
-$stmt = $conn->prepare("
-    SELECT c.menu_id, c.quantity, m.name, m.price 
-    FROM cart c 
-    JOIN menus m ON c.menu_id = m.id 
-    WHERE c.session_id = ?
-");
 $stmt->bind_param("s", $session_id);
 $stmt->execute();
 $cart_result = $stmt->get_result();
