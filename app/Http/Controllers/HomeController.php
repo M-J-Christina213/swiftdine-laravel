@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Deal;
 
 class HomeController extends Controller
 {
@@ -10,6 +11,10 @@ class HomeController extends Controller
     public function index()
     {
         
-        return view('home');
+        // Fetch all special offers (from your `deals` table)
+    $deals = Deal::all();
+
+    // Pass it to the view
+    return view('home', compact('deals'));
     }
 }

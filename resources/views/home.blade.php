@@ -81,21 +81,46 @@
     <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-3xl font-bold text-gray-800 mb-8">🎉 Special Offers</h2>
         <div class="grid md:grid-cols-3 sm:grid-cols-2 gap-6">
-            @forelse ($deals as $deal)
-                <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
-                    <img src="{{ asset($deal->image) }}" alt="Offer Image" class="w-full h-48 object-cover">
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">{{ $deal->description }}</h3>
-                        <p class="text-orange-500 font-bold text-lg mb-1">Discount: {{ $deal->discount }}%</p>
-                        <p class="text-gray-600 text-sm mb-4">Valid till: {{ $deal->validity }}</p>
-                        <button onclick="claimOffer('{{ $deal->description }}')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
-                            Claim Now
-                        </button>
-                    </div>
+
+            <!-- Offer 1 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
+                <img src="{{ asset('images/offer1.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">20% Off on Sri Lankan Meals</h3>
+                    <p class="text-orange-500 font-bold text-lg mb-1">Discount: 20%</p>
+                    <p class="text-gray-600 text-sm mb-4">Valid till: 30th Sept 2025</p>
+                    <button onclick="claimOffer('20% Off on Sri Lankan Meals')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
+                        Claim Now
+                    </button>
                 </div>
-            @empty
-                <p class="text-gray-600">No special offers available at the moment.</p>
-            @endforelse
+            </div>
+
+            <!-- Offer 2 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
+                <img src="{{ asset('images/offer2.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Buy 1 Get 1 Free - Pizza</h3>
+                    <p class="text-orange-500 font-bold text-lg mb-1">Special Deal</p>
+                    <p class="text-gray-600 text-sm mb-4">Valid till: 15th Sept 2025</p>
+                    <button onclick="claimOffer('Buy 1 Get 1 Free - Pizza')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
+                        Claim Now
+                    </button>
+                </div>
+            </div>
+
+            <!-- Offer 3 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
+                <img src="{{ asset('images/offer3.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
+                <div class="p-5">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Free Delivery on Orders Above LKR 3000</h3>
+                    <p class="text-orange-500 font-bold text-lg mb-1">Save on Delivery</p>
+                    <p class="text-gray-600 text-sm mb-4">Valid till: 10th Oct 2025</p>
+                    <button onclick="claimOffer('Free Delivery on Orders Above LKR 3000')" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-all">
+                        Claim Now
+                    </button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -123,6 +148,7 @@ function closePopup() {
 }
 </script>
 @endsection
+
 
 
 
