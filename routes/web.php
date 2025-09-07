@@ -9,6 +9,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\FoodGuideController;
+use App\Http\Controllers\Auth\AuthController;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -53,3 +54,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
