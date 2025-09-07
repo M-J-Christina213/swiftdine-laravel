@@ -8,6 +8,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\DealController;
+use App\Http\Controllers\FoodGuideController;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -38,6 +39,7 @@ Route::post('/reservations', [ReservationController::class, 'store'])->name('res
 // Deals
 Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
+Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
 
 
 Route::middleware([

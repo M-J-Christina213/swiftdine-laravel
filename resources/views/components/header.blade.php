@@ -11,8 +11,8 @@
     <a href="{{ route('home') }}" class="hover:text-black">Home</a>
     <a href="{{ route('restaurants.index') }}" class="hover:text-black">Restaurants</a>
     <a href="{{ route('menus.index') }}" class="hover:text-black">Browse Menu</a>
-    <a href="{{ route('food.guide') }}" class="hover:text-black">Food Guide</a>
-    <a href="{{ route('offers.index') }}" class="hover:text-black">Special Offers</a>
+    <a href="{{ route('guide.index') }}" class="hover:text-black">Food Guide</a>
+    <a href="{{ route('deals.index') }}" class="hover:text-black">Special Offers</a>
     <a href="{{ route('orders.track') }}" class="hover:text-black">Track Order</a>
   </nav>
 
