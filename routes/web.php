@@ -39,13 +39,6 @@ Route::post('/reservations', [ReservationController::class, 'store'])->name('res
 Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/', function () {
-    return view('home'); // points to resources/views/home.blade.php
-});
 
 Route::middleware([
     'auth:sanctum',
