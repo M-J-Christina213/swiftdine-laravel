@@ -73,9 +73,9 @@
             </div>
         </div>
     </section>
-@endsection
 
-@section('content')
+
+
 <!-- Section 2: Special Offers -->
 <div class="py-10 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
@@ -147,12 +147,7 @@ function closePopup() {
     document.getElementById('offerPopup').classList.add('hidden');
 }
 </script>
-@endsection
-
-
-
-
- @section('content')
+<!-- Section 3: Find Food Near You -->
 <!-- 🔍 Find Food Near Your Destination Section -->
 <div class="bg-white py-12 px-4">
     <div class="text-center mb-10">
@@ -253,10 +248,8 @@ function closePopup() {
         </div>
     </div>
 </div>
-@endsection
 
-
-@section('content')
+<!-- Section 4: Craving / Browse Meals -->
 <section class="bg-white py-12 px-4 sm:px-8 lg:px-20">
     <div class="text-center mb-10">
         <h2 class="text-3xl font-bold text-gray-800 mb-2">What are you craving today?</h2>
@@ -311,7 +304,7 @@ function closePopup() {
         </div>
     </form>
 </section>
-@endsection
+
 
 
   <!-- Section 4: Based on your last Order and Most Popular Foods -->
@@ -439,7 +432,8 @@ function closePopup() {
   </div>
 </section>
 
-@section('content')
+
+  <!-- Section 5: Last Orders & Popular Foods -->
 <section class="max-w-7xl mx-auto my-12 px-4">
     <div class="grid md:grid-cols-3 gap-8">
 
@@ -560,12 +554,8 @@ function closePopup() {
         </div>
     </div>
 </section>
-@endsection
 
 
-
-
-@section('content')
 <section class="max-w-6xl mx-auto px-4 py-12">
     <h2 class="text-3xl font-bold mb-8 text-center text-gray-800">Food Tips for Travellers</h2>
     <div class="grid md:grid-cols-3 gap-8">
@@ -672,7 +662,7 @@ function closePopup() {
     exchangeRateDisplay.textContent = exchangeRate;
     updateConversion();
 </script>
-@endsection
+
 
 <section class="bg-[#FFEEDC] py-12 px-4">
   <div class="max-w-6xl mx-auto text-center">
