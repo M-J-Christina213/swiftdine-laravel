@@ -56,33 +56,43 @@ class AuthController extends Controller
 
     // Handle registration
     public function register(Request $request)
-    {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|confirmed|min:6',
-            'role' => 'required|in:customer,restaurant,admin', // adjust roles if needed
-        ]);
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email',
+        'password' => 'required|string|confirmed|min:6',
+        'tel' => 'nullable|string|max:15',
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => $request->role,
-        ]);
-
-        Auth::login($user);
-
-        // Redirect based on role
-        switch ($user->role) {
-            case 'admin':
-                return redirect()->route('admin.dashboard');
-            case 'restaurant':
-                return redirect()->route('owner.dashboard');
-            case 'customer':
-                return redirect()->route('user.home');
-        }
+    // Auto-assign role based on email
+    if ($request->email === 'admin@swiftdine.com') {
+        $role = 'admin';
+    } elseif ($request->email === 'owner@swiftdine.com') {
+        $role = 'restaurant';
+    } else {
+        $role = 'customer';
     }
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'tel' => $request->tel,
+        'password' => Hash::make($request->password),
+        'role' => $role,
+    ]);
+
+    Auth::login($user);
+
+    // Redirect by role
+    switch ($user->role) {
+        case 'admin':
+            return redirect()->route('admin.dashboard');
+        case 'restaurant':
+            return redirect()->route('owner.dashboard');
+        case 'customer':
+            return redirect()->route('user.home');
+    }
+}
 
     // Logout
     public function logout(Request $request)
