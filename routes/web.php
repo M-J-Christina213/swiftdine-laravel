@@ -18,6 +18,8 @@ Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('re
 
 // Menus
 Route::get('/restaurants/{id}/menu', [MenuController::class, 'show'])->name('menus.show');
+Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])
+    ->name('menus.browse');
 
 // Cart
 Route::get('/cart', [CartController::class, 'view'])->name('cart.index');

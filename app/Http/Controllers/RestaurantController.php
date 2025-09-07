@@ -17,4 +17,9 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::findOrFail($id);
         return view('restaurants.show', compact('restaurant'));
     }
+
+    public function browseMenus()
+    {
+        return view('restaurants.browse-menus');
+    }
 }
