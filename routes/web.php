@@ -32,6 +32,7 @@ Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('car
 // Orders
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
 Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
+Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
 
 // Reservations
 Route::get('/reservations', [ReservationController::class, 'create'])->name('reservations.create');

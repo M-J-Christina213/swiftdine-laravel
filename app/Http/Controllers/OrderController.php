@@ -19,4 +19,9 @@ class OrderController extends Controller
         Order::create($request->all());
         return redirect()->route('home')->with('success', 'Order placed!');
     }
+
+    public function track()
+{
+    return view('orders.track'); 
+}
 }
