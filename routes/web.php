@@ -22,6 +22,7 @@ Route::get('/restaurants/{id}/menu', [MenuController::class, 'show'])->name('men
 Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])
     ->name('menus.browse');
 
+Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
 // Cart
 Route::get('/cart', [CartController::class, 'view'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
