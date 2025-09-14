@@ -10,7 +10,7 @@
     <nav class="hidden md:flex space-x-8 text-base font-semibold tracking-wide">
         <a href="{{ route('home') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Home</a>
         <a href="{{ route('restaurants.index') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Restaurants</a>
-        <a href="{{ route('menus.browse') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Browse Menu</a>
+        <a href="{{ route('restaurants.browseMenus') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Browse Menu</a>
         <a href="{{ route('guide.index') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Food Guide</a>
         <a href="{{ route('deals.index') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Special Offers</a>
         <a href="{{ route('orders.track') }}" class="hover:text-black transition-colors duration-300 ease-in-out">Track Order</a>

@@ -20,8 +20,8 @@ Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('re
 
 // Menus
 Route::get('/restaurants/{id}/menu', [MenuController::class, 'show'])->name('menus.show');
-Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])
-    ->name('menus.browse');
+Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])->name('restaurants.browseMenus');
+ 
 
 Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
 // Cart

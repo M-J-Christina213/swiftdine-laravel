@@ -256,7 +256,7 @@ function closePopup() {
         <p class="text-gray-600">Let us help you discover the perfect meal for your mood and taste!</p>
     </div>
 
-    <form action="{{ route('menus.browse') }}" method="GET" class="bg-gray-100 p-6 rounded-2xl shadow-md">
+    <form action="{{ route('restaurants.browseMenus') }}" method="GET" class="bg-gray-100 p-6 rounded-2xl shadow-md">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Cuisine Type -->
             <div>

@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
+use App\Models\Menu; 
 
 class RestaurantController extends Controller
 {
     public function index()
     {
         $restaurants = Restaurant::all();
-        return view('restaurants.index', compact('restaurants'));
+        $menus = Menu::latest()->take(10)->get(); 
+
+        return view('restaurants.index', compact('restaurants', 'menus'));
     }
 
     public function show($id)
@@ -20,6 +23,6 @@ class RestaurantController extends Controller
 
     public function browseMenus()
     {
-        return view('restaurants.browse-menus');
+        return view('restaurants.browseMenus');
     }
 }
