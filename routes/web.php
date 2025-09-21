@@ -11,6 +11,8 @@ use App\Http\Controllers\DealController;
 use App\Http\Controllers\FoodGuideController;
 use App\Http\Controllers\Auth\AuthController;
 
+//Customers Routes
+
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -43,6 +45,12 @@ Route::post('/reservations', [ReservationController::class, 'store'])->name('res
 Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
 Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
+
+// Admin routes
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])
+        ->name('admin.dashboard');
+});
 
 
 Route::middleware([
