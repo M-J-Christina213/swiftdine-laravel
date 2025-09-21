@@ -10,6 +10,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\DealController;
 use App\Http\Controllers\FoodGuideController;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\AdminController;
 
 //Customers Routes
 
@@ -47,11 +48,9 @@ Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
 
 // Admin routes
-Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])
-        ->name('admin.dashboard');
+Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
-
 
 Route::middleware([
     'auth:sanctum',
