@@ -1,4 +1,5 @@
-<?php include '../components/sidebarAdmin.php'; ?>
+<x-admin.sidebar />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +11,11 @@
 </head>
 <body class="flex font-sans text-gray-900 min-h-screen">
 
-
   <!-- Main Content -->
   <main class="flex-1 bg-white p-10 ml-64 overflow-auto">
     <!-- Header -->
     <div class="flex justify-between items-center mb-10">
       <h1 class="text-3xl font-bold">Welcome, Admin</h1>
-      
     </div>
 
     <!-- Summary Cards -->
@@ -59,7 +58,7 @@
   <script>
     // Orders Over Last 6 Months Line Chart
     const ordersCtx = document.getElementById('ordersChart').getContext('2d');
-    const ordersChart = new Chart(ordersCtx, {
+    new Chart(ordersCtx, {
       type: 'line',
       data: {
         labels: ['Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr'],
@@ -81,16 +80,16 @@
 
     // User Role Distribution Doughnut Chart
     const usersCtx = document.getElementById('usersChart').getContext('2d');
-    const usersChart = new Chart(usersCtx, {
+    new Chart(usersCtx, {
       type: 'doughnut',
       data: {
         labels: ['Tourist', 'Local'],
         datasets: [{
           label: 'Users',
-          data: [500, 700], // example data for tourists and locals
+          data: [500, 700], // example data
           backgroundColor: [
-            'rgb(249 115 22)', // orange-500 for Tourist
-            'rgb(251 191 36)'  // yellow-400 for Local
+            'rgb(249 115 22)', // orange-500
+            'rgb(251 191 36)'  // yellow-400
           ],
           hoverOffset: 30
         }]
