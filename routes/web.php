@@ -49,7 +49,8 @@ Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.in
 
 // Admin routes
 Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
 });
 
 Route::middleware([

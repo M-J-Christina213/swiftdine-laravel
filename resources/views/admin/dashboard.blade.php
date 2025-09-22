@@ -1,5 +1,6 @@
 <x-admin.sidebar />
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
