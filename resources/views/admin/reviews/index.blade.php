@@ -1,4 +1,4 @@
-<?php include '../components/sidebarAdmin.php'; ?>
+<x-admin.sidebar />
 
 <?php
 ini_set('display_errors', 1);

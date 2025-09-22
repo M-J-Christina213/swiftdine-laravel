@@ -1,4 +1,4 @@
-<?php include '../components/sidebarAdmin.php'; ?>
+<x-admin.sidebar />
 
 <?php
 error_reporting(E_ALL);

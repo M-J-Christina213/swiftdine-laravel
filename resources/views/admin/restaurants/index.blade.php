@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
 $result = $conn->query("SELECT * FROM restaurants");
 ?>
 
-<?php include '../components/sidebarAdmin.php'; ?>
+<x-admin.sidebar />
 
 <!DOCTYPE html>
 <html lang="en">
