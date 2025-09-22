@@ -51,6 +51,10 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::post('/users', [AdminController::class, 'addUser'])->name('admin.users.add');
+    Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+
     Route::get('/restaurants', [AdminController::class, 'restaurants'])->name('admin.restaurants');
     Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
