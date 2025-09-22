@@ -47,10 +47,14 @@ Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
 Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
 
-// Admin routes
 Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+    Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+    Route::get('/restaurants', [AdminController::class, 'restaurants'])->name('admin.restaurants');
+    Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
+    Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
+    Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });
 
 Route::middleware([
