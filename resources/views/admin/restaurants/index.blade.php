@@ -1,33 +1,3 @@
-<?php
-session_start();
-error_reporting(E_ALL);
-
-// DB connection
-$conn = new mysqli("localhost", "root", "", "swiftdine", 3307);
-
-// Handle Delete request
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['delete_id'])) {
-  $delete_id = $_POST['delete_id'];
-
-  // Optional: delete image file too if needed
-  $imageQuery = $conn->prepare("SELECT image_url FROM restaurants WHERE id = ?");
-  $imageQuery->bind_param("i", $delete_id);
-  $imageQuery->execute();
-  $imageResult = $imageQuery->get_result()->fetch_assoc();
-  if (!empty($imageResult['image_url']) && file_exists($imageResult['image_url'])) {
-    unlink($imageResult['image_url']);
-  }
-
-  // Delete restaurant
-  $stmt = $conn->prepare("DELETE FROM restaurants WHERE id = ?");
-  $stmt->bind_param("i", $delete_id);
-  $stmt->execute();
-}
-
-// Fetch all restaurants
-$result = $conn->query("SELECT * FROM restaurants");
-?>
-
 <x-admin.sidebar />
 
 <!DOCTYPE html>
@@ -42,8 +12,12 @@ $result = $conn->query("SELECT * FROM restaurants");
   <main class="flex-1 p-10 ml-64 bg-white overflow-x-auto">
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-3xl font-bold text-orange-600">Manage Restaurants</h1>
-      <a href="addRestaurant.php" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">➕ Add Restaurant</a>
+      <a href="{{ route('admin.restaurants.create') }}" class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">➕ Add Restaurant</a>
     </div>
+
+    @if(session('success'))
+      <div class="mb-4 text-green-600">{{ session('success') }}</div>
+    @endif
 
     <table class="min-w-full bg-white border border-gray-200 rounded-lg overflow-hidden shadow">
       <thead class="bg-orange-100 text-orange-700">
@@ -60,35 +34,35 @@ $result = $conn->query("SELECT * FROM restaurants");
         </tr>
       </thead>
       <tbody class="text-gray-700">
-        <?php while ($row = $result->fetch_assoc()): ?>
+        @foreach($restaurants as $restaurant)
           <tr class="border-b hover:bg-gray-50">
-            <td class="px-4 py-3"><?php echo $row['id']; ?></td>
+            <td class="px-4 py-3">{{ $restaurant->id }}</td>
             <td class="px-4 py-3">
-              <?php if (!empty($row['image_url'])): ?>
-                <img src="<?php echo htmlspecialchars($row['image_url']); ?>" class="w-16 h-16 rounded object-cover">
-              <?php else: ?>
+              @if(!empty($restaurant->image_url))
+                <img src="{{ $restaurant->image_url }}" class="w-16 h-16 rounded object-cover">
+              @else
                 <span class="text-gray-400 italic">No image</span>
-              <?php endif; ?>
+              @endif
             </td>
-            <td class="px-4 py-3"><?php echo $row['name']; ?></td>
-            <td class="px-4 py-3"><?php echo $row['location']; ?></td>
-            <td class="px-4 py-3"><?php echo $row['cuisine']; ?></td>
-            <td class="px-4 py-3"><?php echo $row['rating']; ?></td>
-            <td class="px-4 py-3"><?php echo $row['owner_id']; ?></td>
-            <td class="px-4 py-3"><?php echo $row['created_at']; ?></td>
+            <td class="px-4 py-3">{{ $restaurant->name }}</td>
+            <td class="px-4 py-3">{{ $restaurant->location }}</td>
+            <td class="px-4 py-3">{{ $restaurant->cuisine }}</td>
+            <td class="px-4 py-3">{{ $restaurant->rating }}</td>
+            <td class="px-4 py-3">{{ $restaurant->owner?->name ?? 'N/A' }}</td>
+            <td class="px-4 py-3">{{ $restaurant->created_at?->format('Y-m-d') }}</td>
             <td class="px-4 py-4 flex items-center gap-2">
               <!-- Edit Button -->
-              <a href="editRestaurant.php?id=<?php echo $row['id']; ?>" class="text-blue-500 hover:underline inline">Edit</a>
+              <a href="{{ route('admin.restaurants.edit', $restaurant->id) }}" class="text-blue-500 hover:underline inline">Edit</a>
 
               <!-- Delete Form -->
-              <form method="POST" onsubmit="return confirm('Are you sure you want to delete this restaurant?');">
-                <input type="hidden" name="delete_id" value="<?php echo htmlspecialchars($row['id']); ?>">
+              <form action="{{ route('admin.restaurants.destroy', $restaurant->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this restaurant?');">
+                @csrf
+                @method('DELETE')
                 <button type="submit" class="text-red-500 hover:underline inline">Delete</button>
               </form>
             </td>
-
           </tr>
-        <?php endwhile; ?>
+        @endforeach
       </tbody>
     </table>
   </main>

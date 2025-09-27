@@ -54,12 +54,14 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::post('/users', [AdminController::class, 'addUser'])->name('admin.users.add');
     Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+    Route::resource('restaurants', RestaurantController::class);
 
-    Route::get('/restaurants', [AdminController::class, 'restaurants'])->name('admin.restaurants');
     Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });
+
+
 
 Route::middleware([
     'auth:sanctum',
