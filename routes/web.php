@@ -11,6 +11,7 @@ use App\Http\Controllers\DealController;
 use App\Http\Controllers\FoodGuideController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Admin\RestaurantController as AdminRestaurantController; // admin
 
 //Customers Routes
 
@@ -47,6 +48,7 @@ Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
 Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
 
+//admin routes
 Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
@@ -54,7 +56,10 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::post('/users', [AdminController::class, 'addUser'])->name('admin.users.add');
     Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
-    Route::resource('restaurants', RestaurantController::class);
+    Route::get('/restaurants', [AdminRestaurantController::class, 'index'])->name('admin.restaurants');
+    Route::get('/restaurants/create', [AdminRestaurantController::class, 'create'])->name('admin.restaurants.create');
+    Route::get('/restaurants/{restaurant}/edit', [AdminRestaurantController::class, 'edit'])->name('admin.restaurants.edit');
+
 
     Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
