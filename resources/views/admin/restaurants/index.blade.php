@@ -37,34 +37,41 @@
         @foreach($restaurants as $restaurant)
           <tr class="border-b hover:bg-gray-50">
             <td class="px-4 py-3">{{ $restaurant->id }}</td>
+
             <td class="px-4 py-3">
-              @if(!empty($restaurant->image_url))
-                <img src="{{ $restaurant->image_url }}" class="w-16 h-16 rounded object-cover">
+              @if($restaurant->image_url)
+                <img src="{{ asset('storage/'.$restaurant->image_url) }}" class="w-16 h-16 rounded object-cover">
               @else
                 <span class="text-gray-400 italic">No image</span>
               @endif
             </td>
+
             <td class="px-4 py-3">{{ $restaurant->name }}</td>
             <td class="px-4 py-3">{{ $restaurant->location }}</td>
             <td class="px-4 py-3">{{ $restaurant->cuisine }}</td>
             <td class="px-4 py-3">{{ $restaurant->rating }}</td>
             <td class="px-4 py-3">{{ $restaurant->owner?->name ?? 'N/A' }}</td>
             <td class="px-4 py-3">{{ $restaurant->created_at?->format('Y-m-d') }}</td>
+
             <td class="px-4 py-4 flex items-center gap-2">
               <!-- Edit Button -->
-              <a href="{{ route('admin.restaurants.edit', $restaurant->id) }}" class="text-blue-500 hover:underline inline">Edit</a>
+              <a href="{{ route('admin.restaurants.edit', $restaurant->id) }}" class="text-blue-500 hover:underline">Edit</a>
 
               <!-- Delete Form -->
               <form action="{{ route('admin.restaurants.destroy', $restaurant->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this restaurant?');">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="text-red-500 hover:underline inline">Delete</button>
+                <button type="submit" class="text-red-500 hover:underline">Delete</button>
               </form>
             </td>
           </tr>
         @endforeach
       </tbody>
     </table>
+
+    @if($restaurants->isEmpty())
+      <p class="mt-4 text-gray-500">No restaurants found.</p>
+    @endif
   </main>
 </body>
 </html>

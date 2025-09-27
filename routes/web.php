@@ -48,23 +48,30 @@ Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
 Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
 
-//admin routes
+// Admin routes
 Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
+    // Users
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
     Route::post('/users', [AdminController::class, 'addUser'])->name('admin.users.add');
     Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
+
+    // Restaurants
     Route::get('/restaurants', [AdminRestaurantController::class, 'index'])->name('admin.restaurants');
     Route::get('/restaurants/create', [AdminRestaurantController::class, 'create'])->name('admin.restaurants.create');
+    Route::post('/restaurants', [AdminRestaurantController::class, 'store'])->name('admin.restaurants.store'); // <-- add store
     Route::get('/restaurants/{restaurant}/edit', [AdminRestaurantController::class, 'edit'])->name('admin.restaurants.edit');
+    Route::put('/restaurants/{restaurant}', [AdminRestaurantController::class, 'update'])->name('admin.restaurants.update'); // <-- add update
+    Route::delete('/restaurants/{restaurant}', [AdminRestaurantController::class, 'destroy'])->name('admin.restaurants.destroy');
 
-
+    // Orders, discounts, reviews
     Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
     Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });
+
 
 
 
