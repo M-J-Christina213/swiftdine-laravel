@@ -16,9 +16,9 @@ class Restaurant extends Model
         'name',
         'location',
         'cuisine',
-        'image_url',
         'rating',
         'owner_id',
+        'image_path',
     ];
 
     /**
