@@ -18,13 +18,15 @@ use App\Http\Controllers\Admin\RestaurantController as AdminRestaurantController
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-// Restaurants
+// Static route first
+Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])->name('restaurants.browseMenus');
+
+//  restaurant routes
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
 Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
 
-// Menus
+// Menu dynamic route
 Route::get('/restaurants/{id}/menu', [MenuController::class, 'show'])->name('menus.show');
-Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])->name('restaurants.browseMenus');
  
 
 Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');

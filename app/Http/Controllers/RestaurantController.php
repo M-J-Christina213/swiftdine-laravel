@@ -21,8 +21,10 @@ class RestaurantController extends Controller
         return view('restaurants.show', compact('restaurant'));
     }
 
+   // Browse all menu items
     public function browseMenus()
     {
-        return view('restaurants.browseMenus');
+        $menuItems = Menu::all(); // Fetch all menu items
+        return view('restaurants.browseMenus', compact('menuItems'));
     }
 }

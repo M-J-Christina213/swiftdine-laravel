@@ -3,13 +3,13 @@
 @section('content')
 <div class="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6">
 
-    <!-- ✅ Sidebar Filters -->
+    <!--  Sidebar Filters -->
     <aside class="w-full lg:w-1/4 bg-white rounded-lg shadow-md p-4 space-y-6">
         <h2 class="text-xl font-bold">Advanced Filters</h2>
         {{-- Static filters can stay as is --}}
     </aside>
 
-    <!-- ✅ Main Menu Grid -->
+    <!-- Main Menu Grid -->
     <section class="w-full lg:w-3/4">
         <h1 class="text-3xl font-bold mb-6">Browse Our Menu</h1>
 
