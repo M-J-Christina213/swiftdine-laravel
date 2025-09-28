@@ -6,7 +6,7 @@
 
 
   <!-- Banner -->
-  <section class="relative h-[400px] md:h-[500px] bg-cover bg-center" style="background-image: url('../../assets/images/foodguide/foodguide.jpg');">
+  <section class="relative h-[400px] md:h-[500px] bg-cover bg-center" style="background-image: url('../../images/foodguide/foodguide.jpg');">
     <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center">
       <div class="container mx-auto px-6 md:px-12 max-w-6xl flex flex-col md:flex-row justify-start items-center md:items-start space-y-6 md:space-y-0 md:space-x-12">
         <div class="text-white max-w-lg">
