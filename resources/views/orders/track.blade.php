@@ -1,4 +1,6 @@
-<?php include '../components/header.php'; ?>
+
+@section('content')
+@include('components.header')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -258,4 +260,4 @@
 </html>
 
 
-<?php include '../component/footer.php'; ?>
+@include('components.footer')
