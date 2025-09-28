@@ -1,5 +1,13 @@
 <x-admin.sidebar />
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Edit Restaurant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 <div class="max-w-3xl mx-auto bg-white p-8 shadow rounded-lg">
     <h1 class="text-2xl font-bold mb-6 text-orange-600">✏️ Edit Restaurant</h1>
 

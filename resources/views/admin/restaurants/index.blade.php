@@ -1,5 +1,14 @@
 <x-admin.sidebar />
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Restaurants </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
 <main class="flex-1 p-10 ml-64 bg-white overflow-x-auto">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-bold text-orange-600">Manage Restaurants</h1>
