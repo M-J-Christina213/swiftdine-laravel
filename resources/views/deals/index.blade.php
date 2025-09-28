@@ -140,6 +140,11 @@ $locked_offers = [
 ];
 ?>
 
+
+
+@section('content')
+@include('components.header')
+
 <!DOCTYPE html>
 <html lang="en" >
 <head>
@@ -174,7 +179,6 @@ $locked_offers = [
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900 font-sans">
-<?php include '../components/header.php'; ?>
 
 
 <!-- Hero Banner -->
@@ -401,5 +405,4 @@ $locked_offers = [
   <?php endif; ?>
 </script>
 
-</body>
-</html>
+@include('components.footer')
