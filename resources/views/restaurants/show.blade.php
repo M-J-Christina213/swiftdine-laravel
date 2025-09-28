@@ -1,20 +1,3 @@
-<?php
-include '../../config/db.php';
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
-// Get restaurant by ID
-$id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$sql = "SELECT * FROM restaurants WHERE id = $id";
-$result = $conn->query($sql);
-
-if ($result->num_rows === 1) {
-    $restaurant = $result->fetch_assoc();
-} else {
-    echo "Restaurant not found.";
-    exit;
-}
-?>
 
 <!-- TaAilwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
