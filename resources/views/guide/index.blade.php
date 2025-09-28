@@ -1,15 +1,9 @@
+@extends('layouts.app')
 
-<?php include __DIR__ . '/../components/header.php'; ?>
+@section('content')
 
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Food Guide Sri Lanka</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800">
+  <!-- Food Guide Main Page -->
+
 
   <!-- Banner -->
   <section class="relative h-[400px] md:h-[500px] bg-cover bg-center" style="background-image: url('../../assets/images/foodguide/foodguide.jpg');">
@@ -34,7 +28,7 @@
       <span>Featured Food Stories</span>
     </h2>
     <div class="grid md:grid-cols-3 gap-8">
-      <?php
+      @php
       $stories = [
         [
           'title' => 'The Story Behind the Hopper',
@@ -55,16 +49,17 @@
           'link' => '#'
         ],
       ];
+      @endphp
 
-      foreach ($stories as $story): ?>
+      @foreach ($stories as $story)
         <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-          <img src="<?= $story['img'] ?>" alt="<?= htmlspecialchars($story['title']) ?>" class="w-full h-48 object-cover" />
+          <img src="{{ $story['img'] }}" alt="{{ $story['title'] }}" class="w-full h-48 object-cover" />
           <div class="p-6">
-            <h3 class="text-xl font-semibold mb-3"><?= $story['title'] ?></h3>
-            <a href="<?= $story['link'] ?>" class="text-orange-500 font-semibold hover:underline"><?= $story['cta'] ?></a>
+            <h3 class="text-xl font-semibold mb-3">{{ $story['title'] }}</h3>
+            <a href="{{ $story['link'] }}" class="text-orange-500 font-semibold hover:underline">{{ $story['cta'] }}</a>
           </div>
         </article>
-      <?php endforeach; ?>
+      @endforeach
     </div>
   </section>
 
@@ -85,24 +80,24 @@
 
     </div>
     <div class="md:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <?php
+      @php
       $regions = [
         'North' => ['Jaffna Crab Curry', 'Palmyrah Products'],
         'South' => ['Hikkaduwa Seafood', 'Coconut Sambol'],
         'East' => ['Batticaloa Sweets', 'Spiced Rice'],
         'West' => ['Colombo Fusion Foods', 'Street Eats'],
       ];
-      ?>
-      <?php foreach ($regions as $region => $dishes): ?>
+      @endphp
+      @foreach ($regions as $region => $dishes)
         <div class="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition cursor-pointer group">
           <h4 class="font-semibold text-xl mb-2 group-hover:text-orange-500"><?= $region ?></h4>
           <ul class="list-disc list-inside text-gray-700 space-y-1">
-            <?php foreach ($dishes as $dish): ?>
+            @foreach ($dishes as $dish)
               <li class="hover:text-orange-500 transition"><?= $dish ?></li>
-            <?php endforeach; ?>
+            @endforeach
           </ul>
         </div>
-      <?php endforeach; ?>
+      @endforeach
     </div>
   </section>
 
@@ -110,39 +105,41 @@
   <section class="container mx-auto px-6 md:px-12 py-12">
     <h2 class="text-3xl font-bold mb-8">📽️ Food Experience Videos & Reels</h2>
     <div class="grid md:grid-cols-3 gap-8">
-      <?php
+      @php
       $videos = [
         ['title' => 'Trying Spicy Street Kottu in Galle', 'thumbnail' => 'https://i.pinimg.com/736x/73/e1/3e/73e13e4645a9a5a0369966a69677c716.jpg'],
         ['title' => 'Local Aunties Make the Best Curry', 'thumbnail' => 'https://i.pinimg.com/736x/04/f3/c9/04f3c9f0133450287343a27522568da4.jpg'],
         ['title' => 'Tourist Tries Finger Food in Pettah', 'thumbnail' => 'https://i.pinimg.com/736x/35/2a/5c/352a5cbcc5b2e89ce8583206f607e460.jpg'],
       ];
-      foreach ($videos as $video): ?>
+      @endphp
+
+      @foreach ($videos as $video)
         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition cursor-pointer">
-          <img src="<?= $video['thumbnail'] ?>" alt="<?= htmlspecialchars($video['title']) ?>" class="w-full h-48 object-cover" />
+          <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" class="w-full h-48 object-cover" />
           <div class="p-4">
-            <h3 class="font-semibold"><?= $video['title'] ?></h3>
+            <h3 class="font-semibold">{{ $video['title'] }}</h3>
           </div>
         </div>
-      <?php endforeach; ?>
+      @endforeach
     </div>
 
     <!-- Mobile TikTok-style vertical section -->
     <div class="md:hidden mt-8 space-y-6 overflow-x-auto snap-x snap-mandatory flex px-2">
-      <?php foreach ($videos as $video): ?>
+      @foreach ($videos as $video)
         <div class="snap-center flex-shrink-0 w-64 bg-white rounded-lg shadow-md overflow-hidden">
-          <img src="<?= $video['thumbnail'] ?>" alt="<?= htmlspecialchars($video['title']) ?>" class="w-full h-80 object-cover" />
+          <img src="{{ $video['thumbnail'] }}" alt="{{ $video['title'] }}" class="w-full h-80 object-cover" />
           <div class="p-3">
-            <h3 class="font-semibold text-sm"><?= $video['title'] ?></h3>
+            <h3 class="font-semibold text-sm">{{ $video['title'] }}</h3>
           </div>
         </div>
-      <?php endforeach; ?>
+      @endforeach
     </div>
   </section>
 
   <!-- Visual Food Glossary -->
   <section class="container mx-auto px-6 md:px-12 py-12">
     <h2 class="text-3xl font-bold mb-8">📸 Visual Food Glossary</h2>
-    <?php
+    @php
     $glossary = [
       [
         'name' => 'Hopper',
@@ -166,22 +163,22 @@
         'img' => 'https://i.pinimg.com/736x/44/d5/78/44d578cb5b3d6f8e558f3e07eb45a5a5.jpg',
       ],
     ];
-    ?>
+    @endphp
     <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
-      <?php foreach ($glossary as $item): ?>
+      @foreach ($glossary as $item)
         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition">
-          <img src="<?= $item['img'] ?>" alt="<?= htmlspecialchars($item['name']) ?>" class="w-full h-48 object-cover" />
+          <img src="{{ $item['img'] }}" alt="{{ $item['name'] }}" class="w-full h-48 object-cover" />
           <div class="p-5">
-            <h3 class="text-xl font-semibold"><?= $item['name'] ?> <span class="text-gray-500 text-sm font-normal"><?= $item['pronunciation'] ?></span></h3>
-            <p class="mt-2 text-gray-700 text-sm"><?= $item['description'] ?></p>
+            <h3 class="text-xl font-semibold">{{ $item['name'] }} <span class="text-gray-500 text-sm font-normal">{{ $item['pronunciation'] }}</span></h3>
+            <p class="mt-2 text-gray-700 text-sm">{{ $item['description'] }}</p>
             <div class="mt-3 flex flex-wrap gap-2">
-              <?php foreach ($item['tags'] as $tag): ?>
-                <span class="bg-orange-100 text-orange-600 text-xs font-semibold px-2 py-1 rounded-full"><?= $tag ?></span>
-              <?php endforeach; ?>
+              @foreach ($item['tags'] as $tag)
+                <span class="bg-orange-100 text-orange-600 text-xs font-semibold px-2 py-1 rounded-full">{{ $tag }}</span>
+              @endforeach
             </div>
           </div>
         </div>
-      <?php endforeach; ?>
+      @endforeach
     </div>
   </section>
 
@@ -190,7 +187,7 @@
     <div class="container mx-auto px-6 md:px-12">
       <h2 class="text-3xl font-bold mb-8">🎙️ Interviews with Locals & Experts</h2>
       <div class="flex space-x-6 overflow-x-auto snap-x snap-mandatory">
-        <?php
+        @php
         $interviews = [
           [
             'name' => 'Chef Amar',
@@ -211,15 +208,15 @@
             'img' => 'https://i.pinimg.com/736x/0f/81/57/0f8157d2e41cef1fa30024d9921ef7a3.jpg',
           ],
         ];
-        ?>
-        <?php foreach ($interviews as $int): ?>
+        @endphp
+        @foreach ($interviews as $int)
           <div class="snap-center min-w-[300px] bg-white bg-opacity-10 rounded-lg p-6 flex flex-col items-center text-center shadow-lg hover:bg-opacity-20 transition cursor-pointer">
-            <img src="<?= $int['img'] ?>" alt="<?= htmlspecialchars($int['name']) ?>" class="w-24 h-24 rounded-full object-cover mb-4 border-2 border-orange-500" />
-            <h3 class="font-semibold text-lg"><?= $int['name'] ?></h3>
-            <p class="italic text-sm mb-3"><?= $int['position'] ?></p>
-            <blockquote class="text-orange-300 font-semibold text-center">“<?= $int['quote'] ?>”</blockquote>
+            <img src="{{ $int['img'] }}" alt="{{ $int['name'] }}" class="w-24 h-24 rounded-full object-cover mb-4 border-2 border-orange-500" />
+            <h3 class="font-semibold text-lg">{{ $int['name'] }}</h3>
+            <p class="italic text-sm mb-3">{{ $int['position'] }}</p>
+            <blockquote class="text-orange-300 font-semibold text-center">“{{ $int['quote'] }}”</blockquote>
           </div>
-        <?php endforeach; ?>
+        @endforeach
       </div>
     </div>
   </section>
@@ -285,7 +282,5 @@
   </section>
 
 
-</body>
-</html>
 
-  <?php include __DIR__ . '/../components/footer.php'; ?>
+@endsection
