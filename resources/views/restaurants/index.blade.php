@@ -66,8 +66,8 @@
     <div id="restaurantCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       @foreach ($restaurants as $res)
         <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
-          <img src="{{ $res->image_url ?? asset('assets/images/restuarants/r1.jpg') }}"
-            alt="{{ $res->name }}" class="rounded-md mb-4 object-cover h-48 w-full" />
+          <img src="{{ $res->image_path ? Storage::url($res->image_path) : asset('images/restaurants/r1.jpg') }}" alt="Restaurant Image">
+
 
           <h3 class="text-xl font-bold mb-1">{{ $res->name }}</h3>
           <p class="text-sm text-gray-600 mb-1">{{ $res->location }}</p>
