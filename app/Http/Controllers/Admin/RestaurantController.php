@@ -31,7 +31,7 @@ class RestaurantController extends Controller
         $data = $request->only('name', 'location', 'cuisine', 'rating', 'owner_id');
 
         if ($request->hasFile('image')) {
-            $data['image_url'] = $request->file('image')->store('restaurants', 'public');
+            $data['image_path'] = $request->file('image')->store('restaurants', 'public');
         }
 
         Restaurant::create($data);
@@ -43,7 +43,8 @@ class RestaurantController extends Controller
         return view('admin.restaurants.edit', compact('restaurant'));
     }
 
-    public function update(Request $request, Restaurant $restaurant) {
+    public function update(Request $request, Restaurant $restaurant)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
@@ -56,12 +57,20 @@ class RestaurantController extends Controller
         $data = $request->only('name', 'location', 'cuisine', 'rating', 'owner_id');
 
         if ($request->hasFile('image')) {
-            $data['image_url'] = $request->file('image')->store('restaurants', 'public');
+            // Delete old image if exists
+            if ($restaurant->image_path && \Storage::disk('public')->exists($restaurant->image_path)) {
+                \Storage::disk('public')->delete($restaurant->image_path);
+            }
+
+            $path = $request->file('image')->store('restaurants', 'public');
+            $data['image_path'] = $path;
         }
+
 
         $restaurant->update($data);
 
-        return redirect()->route('admin.restaurants')->with('success', 'Restaurant updated successfully.');
+        return redirect()->route('admin.restaurants.edit', $restaurant->id)
+                        ->with('success', 'Restaurant updated successfully.');
     }
 
     public function destroy(Restaurant $restaurant) {

@@ -38,8 +38,8 @@
                 <tr class="border-b hover:bg-gray-50">
                     <td class="px-4 py-3">{{ $restaurant->id }}</td>
                     <td class="px-4 py-3">
-                        @if($restaurant->image_url)
-                            <img src="{{ asset('storage/'.$restaurant->image_url) }}" class="w-16 h-16 rounded object-cover">
+                        @if($restaurant->image_path)
+                            <img src="{{ asset('storage/'.$restaurant->image_path) }}" class="w-16 h-16 rounded object-cover">
                         @else
                             <span class="text-gray-400 italic">No image</span>
                         @endif
