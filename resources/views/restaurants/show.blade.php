@@ -116,12 +116,16 @@
             </svg>
             Location
         </h2>
-        <p class="text-gray-700 text-sm mb-4">42 Marine Drive, Colombo 03, Sri Lanka</p>
+
+        <!-- Dynamic Address -->
+        <p class="text-gray-700 text-sm mb-4">{{ $restaurant['location'] }}</p>
+
         <!-- Embedded Google Map -->
         <iframe class="w-full h-40 rounded-md"
-            src="https://www.google.com/maps?q=42%20Marine%20Drive,%20Colombo%2003,%20Sri%20Lanka&output=embed"
+            src="https://www.google.com/maps?q={{ urlencode($restaurant['location']) }}&output=embed"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
+
 
     <!-- Hours & Contact -->
     <div class="bg-white rounded-xl shadow-md p-6">
