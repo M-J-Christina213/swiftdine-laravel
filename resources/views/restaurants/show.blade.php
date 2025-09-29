@@ -1,13 +1,13 @@
 
 <!-- TaAilwind CSS CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
-
 <!-- Banner Section -->
 <div class="relative h-[350px]">
     <!-- Background Image -->
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('<?php echo htmlspecialchars($restaurant['image_url'] ?: 'https://source.unsplash.com/1600x900/?restaurant'); ?>');">
-        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
-    </div>
+    <div class="absolute inset-0 bg-cover bg-center"
+      style="background-image: url('{{ !empty($restaurant['image_path']) ? Storage::url($restaurant['image_path']) : 'https://source.unsplash.com/1600x900/?restaurant' }}');">
+  </div>
+
 
     <!-- Banner Content -->
     <div class="relative z-10 flex items-center justify-between h-full px-10">

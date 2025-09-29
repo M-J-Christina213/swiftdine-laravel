@@ -60,33 +60,34 @@
 
   <!-- Restaurants Section -->
   <section class="max-w-7xl mx-auto px-6 sm:px-12 lg:px-24 py-16">
-    <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Where Would You Like to Eat?</h2>
-    <p class="text-gray-600 mb-8">Search, browse, or explore popular picks</p>
+      <h2 class="text-3xl font-extrabold text-gray-900 mb-2">Where Would You Like to Eat?</h2>
+      <p class="text-gray-600 mb-8">Search, browse, or explore popular picks</p>
 
-    <div id="restaurantCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      @foreach ($restaurants as $res)
-        <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
-          <img src="{{ $res->image_path ? Storage::url($res->image_path) : asset('images/restaurants/r1.jpg') }}" alt="Restaurant Image">
+      <div id="restaurantCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          @foreach ($restaurants as $res)
+              <div class="bg-white rounded-lg shadow-md p-5 flex flex-col">
+                  <img src="{{ $res->image_path ? Storage::url($res->image_path) : asset('images/restaurants/r1.jpg') }}" alt="Restaurant Image">
 
+                  <h3 class="text-xl font-bold mb-1">{{ $res->name }}</h3>
+                  <p class="text-sm text-gray-600 mb-1">{{ $res->location }}</p>
+                  <p class="text-sm text-gray-600 mb-2 italic">{{ $res->cuisine }}</p>
+                  <p class="mb-4 font-semibold text-orange-600">⭐ {{ number_format($res->rating, 1) }}</p>
 
-          <h3 class="text-xl font-bold mb-1">{{ $res->name }}</h3>
-          <p class="text-sm text-gray-600 mb-1">{{ $res->location }}</p>
-          <p class="text-sm text-gray-600 mb-2 italic">{{ $res->cuisine }}</p>
-          <p class="mb-4 font-semibold text-orange-600">⭐ {{ number_format($res->rating, 1) }}</p>
-
-          <div class="mt-auto flex space-x-3">
-            <a href="{{ url('menu/'.$res->id) }}" 
-              class="flex-grow text-center bg-orange-500 hover:bg-orange-600 text-white rounded-full py-2 font-semibold transition">
-              View Menu
-            </a>
-            <a href="{{ route('restaurants.show', $restaurant['id']) }}">
-                View Restaurant
-            </a>
-          </div>
-        </div>
-      @endforeach
-    </div>
+                  <div class="mt-auto flex space-x-3">
+                      <a href="{{ url('menu/'.$res->id) }}" 
+                        class="flex-grow text-center bg-orange-500 hover:bg-orange-600 text-white rounded-full py-2 font-semibold transition">
+                          View Menu
+                      </a>
+                      <a href="{{ route('restaurants.show', $res->id) }}" 
+                        class="flex-grow text-center border border-orange-500 hover:bg-orange-500 hover:text-white rounded-full py-2 font-semibold transition">
+                          View Restaurant
+                      </a>
+                  </div>
+              </div>
+          @endforeach
+      </div>
   </section>
+
 
   <!-- Menu Highlights -->
   <section class="py-12 px-6 max-w-full mx-auto bg-orange-500 shadow-lg">
