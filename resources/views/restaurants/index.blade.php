@@ -79,9 +79,8 @@
               class="flex-grow text-center bg-orange-500 hover:bg-orange-600 text-white rounded-full py-2 font-semibold transition">
               View Menu
             </a>
-            <a href="{{ url('restaurant/'.$res->id) }}" 
-              class="flex-grow text-center border border-orange-500 hover:bg-orange-500 hover:text-white rounded-full py-2 font-semibold transition">
-              View Restaurant
+            <a href="{{ route('restaurants.show', $restaurant['id']) }}">
+                View Restaurant
             </a>
           </div>
         </div>

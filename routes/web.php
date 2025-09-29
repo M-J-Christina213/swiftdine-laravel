@@ -23,10 +23,10 @@ Route::get('/restaurants/menus', [RestaurantController::class, 'browseMenus'])->
 
 //  restaurant routes
 Route::get('/restaurants', [RestaurantController::class, 'index'])->name('restaurants.index');
-Route::get('/restaurants/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
+Route::get('/restaurant/{id}', [RestaurantController::class, 'show'])->name('restaurants.show');
 
 // Menu dynamic route
-Route::get('/restaurants/{id}/menu', [MenuController::class, 'show'])->name('menus.show');
+Route::get('/restaurant/{id}/menu', [MenuController::class, 'show'])->name('menus.show');
  
 
 Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
