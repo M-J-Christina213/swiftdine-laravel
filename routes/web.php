@@ -12,6 +12,11 @@ use App\Http\Controllers\FoodGuideController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\RestaurantController as AdminRestaurantController; // admin
+use App\Http\Controllers\Owner\StaffController;
+use App\Http\Controllers\Owner\OwnerMenusController; 
+use App\Http\Controllers\Owner\OwnerOrdersController;
+use App\Http\Controllers\Owner\OwnerRestaurantController;
+use App\Http\Controllers\Owner\SupplierController;
 
 //Customers Routes
 
@@ -83,10 +88,12 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
     })->name('owner.dashboard');
 
     // Manage Restaurants
-    Route::get('/restaurants', function () {
-        return view('owner.restaurants.index');
-    })->name('owner.restaurants');
-
+    Route::get('/restaurants', [OwnerRestaurantController::class, 'index'])->name('owner.restaurants.index');
+    Route::get('/restaurants/create', [OwnerRestaurantController::class, 'create'])->name('owner.restaurants.create');
+    Route::post('/restaurants', [OwnerRestaurantController::class, 'store'])->name('owner.restaurants.store');
+    Route::get('/restaurants/{restaurant}/edit', [OwnerRestaurantController::class, 'edit'])->name('owner.restaurants.edit');
+    Route::put('/restaurants/{restaurant}', [OwnerRestaurantController::class, 'update'])->name('owner.restaurants.update');
+    Route::delete('/restaurants/{restaurant}', [OwnerRestaurantController::class, 'destroy'])->name('owner.restaurants.destroy');
     Route::get('/restaurants/create', function () {
         return view('owner.restaurants.create');
     })->name('owner.restaurants.create');
@@ -96,28 +103,32 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
     })->name('owner.restaurants.edit');
 
     // Manage Menus
-    Route::get('/menus', function () {
-        return view('owner.menus.index');
-    })->name('owner.menus');
+    Route::get('/menus', [OwnerMenusController::class, 'index'])->name('owner.menus.index');
+    Route::post('/menus', [OwnerMenusController::class, 'store'])->name('owner.menus.store');
+    Route::get('/menus/{menu}/edit', [OwnerMenusController::class, 'edit'])->name('owner.menus.edit');
+    Route::put('/menus/{menu}', [OwnerMenusController::class, 'update'])->name('owner.menus.update');
+    Route::delete('/menus/{menu}', [OwnerMenusController::class, 'destroy'])->name('owner.menus.destroy');
 
     Route::get('/menus/{menu}/edit', function ($menu) {
         return view('owner.menus.edit', compact('menu'));
     })->name('owner.menus.edit');
 
     // Manage Orders
-    Route::get('/orders', function () {
-        return view('owner.orders.index');
-    })->name('owner.orders');
+    Route::get('/orders', [OwnerOrdersController::class, 'index'])->name('owner.orders');
+    Route::put('/orders/{id}', [OwnerOrdersController::class, 'update'])->name('owner.orders.update');
+    Route::delete('/orders/{id}', [OwnerOrdersController::class, 'destroy'])->name('owner.orders.destroy');
 
-    // Manage Staff
-    Route::get('/staff', function () {
-        return view('owner.staff.index');
-    })->name('owner.staff');
+    // Staff
+    Route::get('/staff', [StaffController::class, 'index'])->name('owner.staff');
+    Route::post('/staff', [StaffController::class, 'store'])->name('owner.staff.store');
+    Route::put('/staff/{staff}', [StaffController::class, 'update'])->name('owner.staff.update');
+    Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->name('owner.staff.destroy');
 
     // Manage Suppliers
-    Route::get('/suppliers', function () {
-        return view('owner.suppliers.index');
-    })->name('owner.suppliers');
+    
+    Route::prefix('owner')->name('owner.')->middleware('auth')->group(function () {
+    Route::resource('suppliers', SupplierController::class)->except(['show']);
+});
 });
 
 // Customer home
