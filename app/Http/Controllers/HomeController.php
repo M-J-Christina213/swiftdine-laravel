@@ -17,4 +17,8 @@ class HomeController extends Controller
     // Pass it to the view
     return view('home', compact('deals'));
     }
+
+    public function userHome() {
+    return view('user.home'); 
+    }
 }

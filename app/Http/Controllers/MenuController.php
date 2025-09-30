@@ -13,16 +13,8 @@ class MenuController extends Controller
         $restaurant = Restaurant::findOrFail($restaurantId);
         $menus = Menu::where('restaurant_id', $restaurantId)->get();
 
-        return view('menus.show', compact('restaurant', 'menus'));
-
+        return view('restaurants.menu', compact('restaurant', 'menus'));
     }
 
-    public function index()
-    {
-        // Fetch all menu items
-    $menus = DB::table('menus')->get(); 
-    
-    return view('restaurants.menu', compact('menus'));
-    }
 
 }

@@ -33,7 +33,7 @@ class AuthController extends Controller
             switch ($user->role) {
                 case 'admin':
                     return redirect()->route('admin.dashboard');
-                case 'restaurant':
+                case 'restaurant_owner': // updated
                     return redirect()->route('owner.dashboard');
                 case 'customer':
                     return redirect()->route('user.home');

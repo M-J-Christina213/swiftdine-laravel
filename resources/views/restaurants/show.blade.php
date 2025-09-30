@@ -40,9 +40,10 @@
     
   </div>
 
-  <a href="menu.php" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-    view menu →
-  </a>
+  <a href="{{ route('menus.show', ['id' => $restaurant['id']]) }}" 
+   class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+   View Menu →
+</a>
 </div>
 
 

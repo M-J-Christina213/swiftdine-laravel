@@ -74,8 +74,15 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });
 
+// Customer home
+Route::get('/user/home', function () {
+    return view('home');
+})->name('user.home')->middleware('auth');
 
-
+// Restaurant owner dashboard
+Route::get('/owner/dashboard', function () {
+    return view('owner.dashboard');
+})->name('owner.dashboard')->middleware('auth');
 
 Route::middleware([
     'auth:sanctum',
