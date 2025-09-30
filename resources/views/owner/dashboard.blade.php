@@ -1,5 +1,4 @@
-<?php include '../../config/db.php'; ?>
-<?php include '../components/sidebarOwner.php'; ?>
+<x-owner.sidebar/>
 
 <!DOCTYPE html>
 <html lang="en">

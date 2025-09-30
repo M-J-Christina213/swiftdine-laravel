@@ -74,6 +74,52 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });
 
+// Owner routes
+Route::prefix('owner')->middleware(['auth'])->group(function () {
+
+    // Dashboard
+    Route::get('/dashboard', function () {
+        return view('owner.dashboard');
+    })->name('owner.dashboard');
+
+    // Manage Restaurants
+    Route::get('/restaurants', function () {
+        return view('owner.restaurants.index');
+    })->name('owner.restaurants');
+
+    Route::get('/restaurants/create', function () {
+        return view('owner.restaurants.create');
+    })->name('owner.restaurants.create');
+
+    Route::get('/restaurants/{restaurant}/edit', function ($restaurant) {
+        return view('owner.restaurants.edit', compact('restaurant'));
+    })->name('owner.restaurants.edit');
+
+    // Manage Menus
+    Route::get('/menus', function () {
+        return view('owner.menus.index');
+    })->name('owner.menus');
+
+    Route::get('/menus/{menu}/edit', function ($menu) {
+        return view('owner.menus.edit', compact('menu'));
+    })->name('owner.menus.edit');
+
+    // Manage Orders
+    Route::get('/orders', function () {
+        return view('owner.orders.index');
+    })->name('owner.orders');
+
+    // Manage Staff
+    Route::get('/staff', function () {
+        return view('owner.staff.index');
+    })->name('owner.staff');
+
+    // Manage Suppliers
+    Route::get('/suppliers', function () {
+        return view('owner.suppliers.index');
+    })->name('owner.suppliers');
+});
+
 // Customer home
 Route::get('/user/home', function () {
     return view('home');
