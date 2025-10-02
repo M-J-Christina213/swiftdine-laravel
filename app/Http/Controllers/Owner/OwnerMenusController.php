@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Restaurant;
+use App\Models\Category;
 use Illuminate\Support\Facades\Storage;
 
 class OwnerMenusController extends Controller
@@ -13,17 +14,16 @@ class OwnerMenusController extends Controller
     // Show all menus
     public function index()
     {
-        $menus = Menu::with('restaurant')->orderByDesc('id')->get();
-        $restaurants = Restaurant::all();
-
-        return view('owner.menus.index', compact('menus', 'restaurants'));
+        $menus = Menu::with(['restaurant', 'category'])->orderBy('id')->get();
+        return view('owner.menus.index', compact('menus'));
     }
 
-    // Show edit form
-    public function edit(Menu $menu)
+    // Show create form
+    public function create()
     {
-        $restaurants = Restaurant::all();
-        return view('owner.menus.edit', compact('menu', 'restaurants'));
+        $restaurants = Restaurant::where('owner_id', auth()->id())->get();
+        $categories = Category::all(); // fetch categories
+        return view('owner.menus.create', compact('restaurants', 'categories'));
     }
 
     // Store new menu item
@@ -31,23 +31,22 @@ class OwnerMenusController extends Controller
     {
         $request->validate([
             'restaurant_id' => 'required|exists:restaurants,id',
+            'category_id' => 'required|exists:categories,id', // category required
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
             'image' => 'nullable|image|max:2048',
-            'image_url' => 'nullable|url',
         ]);
 
         $imagePath = null;
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('menus', 'public');
-        } elseif ($request->filled('image_url')) {
-            $imagePath = $request->image_url;
         }
 
         Menu::create([
             'restaurant_id' => $request->restaurant_id,
+            'category_id' => $request->category_id,
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
@@ -57,39 +56,41 @@ class OwnerMenusController extends Controller
         return redirect()->route('owner.menus.index')->with('success', 'Menu item added successfully.');
     }
 
-    // Update existing menu
-    public function update(Request $request, Menu $menu)
+    // Show edit form
+    public function edit(Menu $menu)
     {
-        $request->validate([
+        $restaurants = Restaurant::where('owner_id', auth()->id())->get();
+        $categories = Category::all();
+        return view('owner.menus.edit', compact('menu', 'restaurants', 'categories'));
+    }
+
+    // Update existing menu
+        public function update(Request $request, Menu $menu)
+    {
+        $validated = $request->validate([
             'restaurant_id' => 'required|exists:restaurants,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|max:2048',
-            'image_url' => 'nullable|url',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
-
-        $imagePath = $menu->image; // keep old image by default
 
         if ($request->hasFile('image')) {
-            if ($menu->image && Storage::disk('public')->exists($menu->image)) {
-                Storage::disk('public')->delete($menu->image);
+            // delete old image if exists
+            if ($menu->image && \Storage::disk('public')->exists($menu->image)) {
+                \Storage::disk('public')->delete($menu->image);
             }
-            $imagePath = $request->file('image')->store('menus', 'public');
-        } elseif ($request->filled('image_url')) {
-            $imagePath = $request->image_url;
+
+            // store new image
+            $path = $request->file('image')->store('menus', 'public');
+            $validated['image'] = $path;
         }
 
-        $menu->update([
-            'restaurant_id' => $request->restaurant_id,
-            'name' => $request->name,
-            'description' => $request->description,
-            'price' => $request->price,
-            'image' => $imagePath,
-        ]);
+        $menu->update($validated);
 
-        return redirect()->route('owner.menus.index')->with('success', 'Menu item updated successfully.');
+        return redirect()->route('owner.menus.index')->with('success', 'Menu updated successfully!');
     }
+
 
     // Delete menu
     public function destroy(Menu $menu)
