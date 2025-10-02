@@ -41,10 +41,11 @@ class OwnerRestaurantController extends Controller
         $restaurant->cuisine = $request->cuisine;
         $restaurant->rating = $request->rating;
 
+        // Handle image
         if ($request->hasFile('image')) {
-            $restaurant->image_url = $request->file('image')->store('restaurants', 'public');
+            $restaurant->image_path = $request->file('image')->store('restaurants', 'public');
         } elseif ($request->image_url) {
-            $restaurant->image_url = $request->image_url;
+            $restaurant->image_path = $request->image_url;
         }
 
         $restaurant->save();
@@ -53,18 +54,25 @@ class OwnerRestaurantController extends Controller
                          ->with('success', 'Restaurant added successfully!');
     }
 
-    // Show form to edit
-    public function edit(Restaurant $restaurant)
+    // Show edit form
+    public function edit($id)
     {
+        $restaurant = Restaurant::findOrFail($id);
+
+        // Ensure the restaurant belongs to the logged-in owner
         if ($restaurant->owner_id !== auth()->id()) {
             abort(403, 'You do not have permission to edit this restaurant.');
         }
+
         return view('owner.restaurants.edit', compact('restaurant'));
     }
 
     // Update restaurant
-    public function update(Request $request, Restaurant $restaurant)
+    public function update(Request $request, $id)
     {
+        $restaurant = Restaurant::findOrFail($id);
+
+        // Ensure the restaurant belongs to the logged-in owner
         if ($restaurant->owner_id !== auth()->id()) {
             abort(403, 'You do not have permission to update this restaurant.');
         }
@@ -83,10 +91,11 @@ class OwnerRestaurantController extends Controller
         $restaurant->cuisine = $request->cuisine;
         $restaurant->rating = $request->rating;
 
+        // Update image
         if ($request->hasFile('image')) {
-            $restaurant->image_url = $request->file('image')->store('restaurants', 'public');
+            $restaurant->image_path = $request->file('image')->store('restaurants', 'public');
         } elseif ($request->image_url) {
-            $restaurant->image_url = $request->image_url;
+            $restaurant->image_path = $request->image_url;
         }
 
         $restaurant->save();
@@ -96,8 +105,10 @@ class OwnerRestaurantController extends Controller
     }
 
     // Delete restaurant
-    public function destroy(Restaurant $restaurant)
+    public function destroy($id)
     {
+        $restaurant = Restaurant::findOrFail($id);
+
         if ($restaurant->owner_id !== auth()->id()) {
             abort(403, 'You do not have permission to delete this restaurant.');
         }

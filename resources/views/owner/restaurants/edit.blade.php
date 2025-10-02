@@ -1,5 +1,14 @@
 <x-owner.sidebar/>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Restaurants </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
 <div class="max-w-xl mx-auto p-6 mt-10 bg-white rounded shadow ml-64">
     <h2 class="text-2xl font-bold text-orange-600 mb-6">Edit Restaurant</h2>
 
@@ -13,10 +22,9 @@
         <input type="number" name="rating" value="{{ $restaurant->rating }}" required min="1" max="5" step="0.1" class="w-full border px-4 py-2 rounded" placeholder="Rating">
 
         <div>
-            <label class="block mb-1">Upload Image (or enter URL)</label>
+            <label class="block mb-1">Upload Image </label>
             <input type="file" name="image" accept="image/*" class="w-full border px-4 py-2 rounded">
-            <input type="text" name="image_path" value="{{ $restaurant->image_path }}" placeholder="Or paste image URL here" class="w-full border px-4 py-2 rounded mt-2">
-
+           
             @if($restaurant->image_path)
                 <img src="{{ asset('storage/' . $restaurant->image_path) }}" class="w-32 h-32 mt-2 object-cover rounded border">
             @endif
