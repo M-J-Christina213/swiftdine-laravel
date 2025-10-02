@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Menu extends Model
 {
+    // Allow mass assignment for these fields
+    protected $fillable = [
+        'restaurant_id',
+        'category_id',
+        'name',
+        'description',
+        'price',
+        'image',
+    ];
+
+    // Relationships
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class);
@@ -21,4 +32,3 @@ class Menu extends Model
         return $this->hasMany(Cart::class);
     }
 }
-
