@@ -88,7 +88,7 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
     })->name('owner.dashboard');
 
     // Manage Restaurants
-    Route::get('/restaurants', [OwnerRestaurantController::class, 'index'])->name('owner.restaurants.index');
+    Route::get('/restaurants', [OwnerRestaurantController::class, 'index'])->name('owner.restaurants');
     Route::get('/restaurants/create', [OwnerRestaurantController::class, 'create'])->name('owner.restaurants.create');
     Route::post('/restaurants', [OwnerRestaurantController::class, 'store'])->name('owner.restaurants.store');
     Route::get('/restaurants/{restaurant}/edit', [OwnerRestaurantController::class, 'edit'])->name('owner.restaurants.edit');
@@ -103,7 +103,7 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
     })->name('owner.restaurants.edit');
 
     // Manage Menus
-    Route::get('/menus', [OwnerMenusController::class, 'index'])->name('owner.menus.index');
+    Route::get('/menus', [OwnerMenusController::class, 'index'])->name('owner.menus');
     Route::post('/menus', [OwnerMenusController::class, 'store'])->name('owner.menus.store');
     Route::get('/menus/{menu}/edit', [OwnerMenusController::class, 'edit'])->name('owner.menus.edit');
     Route::put('/menus/{menu}', [OwnerMenusController::class, 'update'])->name('owner.menus.update');
@@ -126,9 +126,10 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
 
     // Manage Suppliers
     
-    Route::prefix('owner')->name('owner.')->middleware('auth')->group(function () {
+    
     Route::resource('suppliers', SupplierController::class)->except(['show']);
-});
+    Route::get('/suppliers', [SupplierController::class, 'index'])->name('owner.suppliers');
+
 });
 
 // Customer home
