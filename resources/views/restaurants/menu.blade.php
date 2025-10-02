@@ -8,30 +8,33 @@
     <script>
     // AJAX helper
     async function ajaxCart(action, menu_id, quantity=1) {
-        const formData = new FormData();
-        formData.append('action', action);
-        formData.append('menu_id', menu_id);
-        formData.append('quantity', quantity);
-
-        const response = await fetch('menu.php', {
-            method: 'POST',
-            body: formData
+        const response = await fetch("{{ route('cart.add') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                menu_id: menu_id,
+                quantity: quantity,
+                action: action
+            }),
         });
+
         const data = await response.json();
-        if(data.status === 'success') {
-            // Refresh cart display
+        if (data.status === "success") {
             loadCart();
         } else {
-            alert('Something went wrong.');
+            alert("Something went wrong.");
         }
     }
 
-    // Load cart summary via AJAX (simple approach)
     async function loadCart() {
-        const response = await fetch('cart_summary.php'); // We'll create this endpoint below
+        const response = await fetch("{{ route('cart.index') }}");
         const html = await response.text();
-        document.getElementById('cart-summary').innerHTML = html;
+        document.getElementById("cart-summary").innerHTML = html;
     }
+
 
     // On page load, load cart
     document.addEventListener('DOMContentLoaded', () => {
@@ -154,56 +157,39 @@
         <h1 class="text-4xl font-bold text-orange-600 mb-6">Full Menu</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <?php foreach ($menus as $menu): ?>
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
-                    <!-- Image -->
-                    <img src="<?= (filter_var($menu['image'], FILTER_VALIDATE_URL) ? $menu['image'] : 'images/' . htmlspecialchars($menu['image'])) ?>" alt="<?= htmlspecialchars($menu['name']) ?>" class="w-full h-48 object-cover">
+                <div class="bg-white rounded-2xl shadow hover:shadow-xl transition p-4 flex flex-col">
+                    <div class="relative">
+                        <img src="{{ asset('storage/' . $menu->image_url) }}" 
+                            alt="{{ $menu->name }}" 
+                            class="w-full h-48 object-cover rounded-lg">
+                        <span class="absolute top-2 right-2 bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+                            Rs {{ number_format($menu->price, 2) }}
+                        </span>
+                    </div>
 
-                    <!-- Content -->
-                    <div class="p-4">
-                        <!-- Title + Price -->
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-lg font-semibold"><?= htmlspecialchars($menu['name']) ?></h3>
-                            <span class="text-green-600 font-bold">LKR <?= number_format($menu['price'], 2) ?></span>
+                    <div class="mt-4 flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-gray-800">{{ $menu->name }}</h3>
+                        <p class="text-gray-500 text-sm flex-grow">{{ $menu->description }}</p>
+
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex items-center border rounded-lg">
+                                <button data-menu-id="{{ $menu->id }}" 
+                                        class="qty-decrease px-3 py-1 text-gray-600 hover:bg-gray-100">-</button>
+                                <input id="qty-{{ $menu->id }}" 
+                                    type="number" min="1" value="1" 
+                                    class="w-12 text-center border-0">
+                                <button data-menu-id="{{ $menu->id }}" 
+                                        class="qty-increase px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
+                            </div>
+
+                            <button data-menu-id="{{ $menu->id }}" 
+                                    class="add-to-cart-btn bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg shadow">
+                                Add +
+                            </button>
                         </div>
-
-                        <!-- Description -->
-                        <p class="text-gray-600 text-sm mb-3"><?= htmlspecialchars($menu['description']) ?></p>
-
-                        <!-- Dietary Tags -->
-                        <div class="flex flex-wrap gap-2 mb-4 text-sm">
-                            <?php
-                            $tagsArray = array_map('trim', explode(',', $menu['tags'] ?? ''));
-                            foreach ($tagsArray as $tag) {
-                                switch (strtolower($tag)) {
-                                    case 'vegetarian':
-                                        echo '<span class="bg-green-100 text-green-800 px-2 py-1 rounded-full">🥦 Vegetarian</span>';
-                                        break;
-                                    case 'spicy':
-                                        echo '<span class="bg-red-100 text-red-700 px-2 py-1 rounded-full">🌶️ Spicy</span>';
-                                        break;
-                                    case 'gluten-free':
-                                        echo '<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">🌾 Gluten-Free</span>';
-                                        break;
-                                    case 'gluten':
-                                        echo '<span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-full">🌾 Contains Gluten</span>';
-                                        break;
-                                }
-                            }
-                            ?>
-                        </div>
-
-                        <!-- Quantity controls -->
-                        <div class="flex items-center mb-3 gap-2">
-                            <button data-menu-id="<?= $menu['id'] ?>" class="qty-decrease bg-gray-200 rounded px-3 py-1 hover:bg-gray-300">-</button>
-                            <input id="qty-<?= $menu['id'] ?>" type="number" min="1" value="1" class="w-12 text-center rounded border border-gray-300">
-                            <button data-menu-id="<?= $menu['id'] ?>" class="qty-increase bg-gray-200 rounded px-3 py-1 hover:bg-gray-300">+</button>
-                        </div>
-
-                        <button data-menu-id="<?= $menu['id'] ?>" class="add-to-cart-btn w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-700 transition">
-                            Add to Cart
-                        </button>
                     </div>
                 </div>
+
             <?php endforeach; ?>
         </div>
     </div>
