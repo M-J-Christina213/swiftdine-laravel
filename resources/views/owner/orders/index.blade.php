@@ -26,7 +26,7 @@
                 <th class="p-3 border-b border-orange-300">Order ID</th>
                 <th class="p-3 border-b border-orange-300">User</th>
                 <th class="p-3 border-b border-orange-300">Restaurant</th>
-                <th class="p-3 border-b border-orange-300">Total Price ($)</th>
+                <th class="p-3 border-b border-orange-300">Total Price (Rs)</th>
                 <th class="p-3 border-b border-orange-300">Status</th>
                 <th class="p-3 border-b border-orange-300">Created At</th>
                 <th class="p-3 border-b border-orange-300">Actions</th>

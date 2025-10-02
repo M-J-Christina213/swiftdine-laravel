@@ -17,6 +17,7 @@ use App\Http\Controllers\Owner\OwnerMenusController;
 use App\Http\Controllers\Owner\OwnerOrdersController;
 use App\Http\Controllers\Owner\OwnerRestaurantController;
 use App\Http\Controllers\Owner\SupplierController;
+use App\Http\Controllers\Admin\AdminOrderController;
 
 //Customers Routes
 
@@ -73,8 +74,11 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::put('/restaurants/{restaurant}', [AdminRestaurantController::class, 'update'])->name('admin.restaurants.update'); // <-- add update
     Route::delete('/restaurants/{restaurant}', [AdminRestaurantController::class, 'destroy'])->name('admin.restaurants.destroy');
 
-    // Orders, discounts, reviews
-    Route::get('/orders', [AdminController::class, 'orders'])->name('admin.orders');
+    // Manage Orders
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
+    Route::put('/orders/{order}', [AdminOrderController::class, 'update'])->name('admin.orders.update');
+    Route::delete('/orders/{order}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
+    //discounts, reviews
     Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });
@@ -105,7 +109,7 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
 
 
     // Manage Orders
-    Route::get('/orders', [OwnerOrdersController::class, 'index'])->name('owner.orders');
+    Route::get('/orders', [OwnerOrdersController::class, 'index'])->name('owner.orders.index');
     Route::put('/orders/{id}', [OwnerOrdersController::class, 'update'])->name('owner.orders.update');
     Route::delete('/orders/{id}', [OwnerOrdersController::class, 'destroy'])->name('owner.orders.destroy');
 

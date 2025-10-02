@@ -5,7 +5,7 @@
       <a href="{{ route('owner.dashboard') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Dashboard</a>
       <a href="{{ route('owner.restaurants.index') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Manage Restaurant</a>
       <a href="{{ route('owner.menus.index') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Manage Menus</a>
-      <a href="{{ route('owner.orders') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Manage Orders</a>
+      <a href="{{ route('owner.orders.index') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Manage Orders</a>
       <a href="{{ route('owner.staff') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Manage Staff</a>
       <a href="{{ route('owner.suppliers') }}" class="block px-4 py-2 rounded hover:bg-orange-600">Manage Suppliers</a>
       <form method="POST" action="{{ route('logout') }}" class="mt-10">
