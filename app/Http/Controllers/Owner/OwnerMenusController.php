@@ -27,21 +27,21 @@ class OwnerMenusController extends Controller
     }
 
     // Store new menu item
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $request->validate([
             'restaurant_id' => 'required|exists:restaurants,id',
-            'category_id' => 'required|exists:categories,id', // category required
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|max:2048',
+            'image_url' => 'nullable|image|max:2048', // use image_url here
         ]);
 
         $imagePath = null;
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('menus', 'public');
+        if ($request->hasFile('image_url')) {
+            $imagePath = $request->file('image_url')->store('menus', 'public');
         }
 
         Menu::create([
@@ -50,7 +50,7 @@ class OwnerMenusController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'image' => $imagePath,
+            'image_url' => $imagePath, // match DB column
         ]);
 
         return redirect()->route('owner.menus.index')->with('success', 'Menu item added successfully.');

@@ -45,7 +45,7 @@
             <input type="number" step="0.01" min="0" name="price" placeholder="Price (e.g. 9.99)" required class="w-full border border-gray-300 p-2 rounded" />
             
             <label class="block text-orange-600 font-medium">Upload Image</label>
-            <input type="file" name="image" accept="image/*" class="w-full border border-gray-300 p-2 rounded cursor-pointer" />
+            <input type="file" name="image_url" accept="image/*" class="w-full border border-gray-300 p-2 rounded cursor-pointer" />
 
             <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded transition duration-300 ease-in-out transform hover:scale-105">Add Menu Item</button>
         </form>
