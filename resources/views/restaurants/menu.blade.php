@@ -30,10 +30,11 @@
     }
 
     async function loadCart() {
-        const response = await fetch("{{ route('cart.index') }}");
+        const response = await fetch("{{ route('cart.summary') }}");
         const html = await response.text();
         document.getElementById("cart-summary").innerHTML = html;
     }
+
 
 
     // On page load, load cart

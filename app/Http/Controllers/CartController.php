@@ -35,4 +35,11 @@ class CartController extends Controller
         Cart::findOrFail($id)->delete();
         return redirect()->back()->with('success', 'Item removed!');
     }
+
+        public function summary()
+    {
+        $cartItems = Cart::where('user_id', auth()->id())->with('menu')->get();
+        return view('cart.summary', compact('cartItems'));
+    }
+
 }

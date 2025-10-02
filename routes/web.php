@@ -41,6 +41,8 @@ Route::get('/cart', [CartController::class, 'view'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+Route::get('/cart/summary', [CartController::class, 'summary'])->name('cart.summary');
+
 
 // Orders
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
