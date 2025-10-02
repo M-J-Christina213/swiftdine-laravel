@@ -1,5 +1,14 @@
 <x-owner.sidebar/>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Manage Orders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
 <div class="flex-1 bg-white p-10 ml-64 overflow-auto">
     <div class="flex justify-between items-center mb-10">
         <h1 class="text-3xl font-bold">Manage Orders</h1>
