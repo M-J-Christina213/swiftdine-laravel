@@ -13,7 +13,7 @@ class Menu extends Model
         'name',
         'description',
         'price',
-        'image',
+        'image_url',
     ];
 
     // Relationships

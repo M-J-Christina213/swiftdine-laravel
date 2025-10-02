@@ -30,17 +30,18 @@
         <input type="number" step="0.01" min="0" name="price" value="{{ old('price', $menu->price) }}" required class="w-full border border-gray-300 p-2 rounded" />
 
         <label class="block text-orange-600 font-medium">Upload New Image </label>
-        <input type="file" name="image" accept="image/*" class="w-full border border-gray-300 p-2 rounded" />
-
-    
+        <input type="file" name="image_url" accept="image/*" class="w-full border border-gray-300 p-2 rounded" />
 
         <div class="flex items-center space-x-4 mt-4">
-            @if($menu->image)
-                <img src="{{ asset('storage/' . $menu->image) }}" alt="Current Image" class="w-20 h-20 object-cover border rounded" />
+            @if($menu->image_url)
+                <img src="{{ asset('storage/' . $menu->image_url) }}" 
+                    alt="Current Image" 
+                    class="w-20 h-20 object-cover border rounded" />
             @else
                 <span>No image available</span>
             @endif
         </div>
+
 
         <button type="submit" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded transition transform hover:scale-105">
             Update Menu

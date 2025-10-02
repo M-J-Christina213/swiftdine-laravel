@@ -42,11 +42,12 @@
                         <td class="py-3 px-4">{{ $menu->id }}</td>
                         <td class="py-3 px-4">{{ $menu->category->name ?? 'N/A' }}</td>
                         <td class="py-3 px-4">
-                            @if($menu->image)
-                                <img src="{{ asset('storage/' . $menu->image) }}" alt="Current Image" class="w-20 h-20 object-cover border rounded" />
+                            @if($menu->image_url)
+                                <img src="{{ asset('storage/' . $menu->image_url) }}" alt="Current Image" class="w-20 h-20 object-cover border rounded" />
                             @else
                                 <div class="w-16 h-16 flex items-center justify-center bg-orange-200 text-orange-600 rounded">No Img</div>
                             @endif
+
                         </td>
                         <td class="py-3 px-4">{{ $menu->name }}</td>
                         <td class="py-3 px-4">{{ $menu->description }}</td>
