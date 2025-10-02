@@ -30,48 +30,48 @@
     }
 
     async function loadCart() {
+    try {
         const response = await fetch("{{ route('cart.summary') }}");
+        if(!response.ok) throw new Error("Network response not OK");
         const html = await response.text();
         document.getElementById("cart-summary").innerHTML = html;
+    } catch (err) {
+        console.error(err);
+        document.getElementById("cart-summary").innerHTML = "<p>Failed to load cart. Please refresh the page.</p>";
     }
+}
+
 
 
 
     // On page load, load cart
-    document.addEventListener('DOMContentLoaded', () => {
+   document.addEventListener('click', async (e) => {
+    // Add to cart button
+    if(e.target.classList.contains('add-to-cart-btn')) {
+        const menuId = e.target.dataset.menuId;
+        const qtyElem = document.querySelector(`#qty-${menuId}`);
+        const quantity = parseInt(qtyElem.value) || 1;
+        await ajaxCart('add', menuId, quantity);
+    }
+
+    // Quantity +/-
+    if(e.target.classList.contains('qty-decrease') || e.target.classList.contains('qty-increase')) {
+        const menuId = e.target.dataset.menuId;
+        const qtyElem = document.querySelector(`#qty-${menuId}`);
+        let val = parseInt(qtyElem.value) || 1;
+        if(e.target.classList.contains('qty-decrease') && val>1) val--;
+        if(e.target.classList.contains('qty-increase')) val++;
+        qtyElem.value = val;
+    }
+
+    // Delete from cart
+    if(e.target.classList.contains('cart-remove-btn')) {
+        const id = e.target.dataset.cartId;
+        await fetch(`/cart/remove/${id}`, { method: 'DELETE', headers: { 'X-CSRF-TOKEN': '{{ csrf_token() }}' } });
         loadCart();
+    }
+});
 
-        // Attach add to cart handlers
-        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const menuId = e.target.dataset.menuId;
-                const qtyElem = document.querySelector(`#qty-${menuId}`);
-                const quantity = parseInt(qtyElem.value) || 1;
-                ajaxCart('add', menuId, quantity);
-            });
-        });
-
-        // Attach quantity increment/decrement
-        document.querySelectorAll('.qty-decrease').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const menuId = e.target.dataset.menuId;
-                const qtyElem = document.querySelector(`#qty-${menuId}`);
-                let val = parseInt(qtyElem.value) || 1;
-                if(val > 1) val--;
-                qtyElem.value = val;
-            });
-        });
-
-        document.querySelectorAll('.qty-increase').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const menuId = e.target.dataset.menuId;
-                const qtyElem = document.querySelector(`#qty-${menuId}`);
-                let val = parseInt(qtyElem.value) || 1;
-                val++;
-                qtyElem.value = val;
-            });
-        });
-    });
     </script>
 </head>
 
@@ -104,9 +104,10 @@
     
   </div>
 
-  <a href="checkout.php" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-    Proceed to Cart →
-  </a>
+  <a href="{{ route('cart.index') }}" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+    Proceed to Checkout →
+</a>
+
 </div>
 
 
