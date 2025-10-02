@@ -95,8 +95,8 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
     Route::put('/restaurants/{restaurant}', [OwnerRestaurantController::class, 'update'])->name('owner.restaurants.update');
     Route::delete('/restaurants/{restaurant}', [OwnerRestaurantController::class, 'destroy'])->name('owner.restaurants.destroy');
 
-   // Manage Menus
-    Route::get('/menus', [OwnerMenusController::class, 'index'])->name('owner.menus');
+  // Manage Menus
+    Route::get('/menus', [OwnerMenusController::class, 'index'])->name('owner.menus.index');
     Route::get('/menus/create', [OwnerMenusController::class, 'create'])->name('owner.menus.create');
     Route::post('/menus', [OwnerMenusController::class, 'store'])->name('owner.menus.store');
     Route::get('/menus/{menu}/edit', [OwnerMenusController::class, 'edit'])->name('owner.menus.edit');

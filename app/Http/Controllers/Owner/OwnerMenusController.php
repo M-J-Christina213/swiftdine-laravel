@@ -64,32 +64,34 @@ class OwnerMenusController extends Controller
         return view('owner.menus.edit', compact('menu', 'restaurants', 'categories'));
     }
 
-    // Update existing menu
-        public function update(Request $request, Menu $menu)
-    {
-        $validated = $request->validate([
-            'restaurant_id' => 'required|exists:restaurants,id',
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
+   
+     // Update existing menu
+public function update(Request $request, Menu $menu)
+{
+    $validated = $request->validate([
+        'restaurant_id' => 'required|exists:restaurants,id',
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|numeric|min:0',
+        'image_url' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+    ]);
 
-        if ($request->hasFile('image')) {
-            // delete old image if exists
-            if ($menu->image && \Storage::disk('public')->exists($menu->image)) {
-                \Storage::disk('public')->delete($menu->image);
-            }
-
-            // store new image
-            $path = $request->file('image')->store('menus', 'public');
-            $validated['image'] = $path;
+    if ($request->hasFile('image_url')) {
+        // delete old image if exists
+        if ($menu->image_url && \Storage::disk('public')->exists($menu->image_url)) {
+            \Storage::disk('public')->delete($menu->image_url);
         }
 
-        $menu->update($validated);
-
-        return redirect()->route('owner.menus.index')->with('success', 'Menu updated successfully!');
+        // store new image
+        $path = $request->file('image_url')->store('menus', 'public');
+        $validated['image_url'] = $path;
     }
+
+    $menu->update($validated);
+
+    return redirect()->route('owner.menus.index')->with('success', 'Menu updated successfully!');
+}
+
 
 
     // Delete menu
