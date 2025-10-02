@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Restaurant;
 use App\Models\Menu; 
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
+
 
 class RestaurantController extends Controller
 {
@@ -26,5 +29,16 @@ class RestaurantController extends Controller
     {
         $menuItems = Menu::all(); // Fetch all menu items
         return view('restaurants.browseMenus', compact('menuItems'));
+    }
+
+    public function menu($restaurantId)
+    {
+        $menus = Menu::where('restaurant_id', $restaurantId)->get();
+
+        // Get cart items for the logged-in user
+        $cartItems = Cart::with('menu')->where('user_id', Auth::id())->get();
+
+        // Pass both $menus and $cartItems to the view
+        return view('restaurants.menu', compact('menus', 'cartItems'));
     }
 }

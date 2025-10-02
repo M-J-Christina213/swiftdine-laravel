@@ -9,12 +9,20 @@ use Illuminate\Support\Facades\DB;
 class MenuController extends Controller
 {
     public function show($restaurantId)
-    {
-        $restaurant = Restaurant::findOrFail($restaurantId);
-        $menus = Menu::where('restaurant_id', $restaurantId)->get();
+{
+    $restaurant = Restaurant::findOrFail($restaurantId);
+    $menus = Menu::where('restaurant_id', $restaurantId)->get();
 
-        return view('restaurants.menu', compact('restaurant', 'menus'));
+    $cartItems = [];
+    if(auth()->check()) {
+        $cartItems = \App\Models\Cart::with('menu')
+                    ->where('user_id', auth()->id())
+                    ->get();
     }
+
+    return view('restaurants.menu', compact('restaurant', 'menus', 'cartItems'));
+}
+
 
 
 }

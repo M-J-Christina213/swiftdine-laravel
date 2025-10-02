@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -15,7 +14,7 @@
     <p class="italic text-lg font-light">Ready for your delicious meal?</p>
 </section>
 
-<!-- Nav -->
+<!-- Nav & Proceed -->
 <div class="flex justify-between items-center px-6 py-4">
     <div class="flex gap-3">
         <a href="{{ route('menus.index') }}" class="text-sm text-red-500 border border-red-500 px-4 py-2 rounded hover:bg-red-100">Cancel</a>
@@ -33,6 +32,7 @@
 <!-- Step Progress -->
 <div class="flex items-center justify-center mt-6 px-10">
     <div class="flex gap-6 items-center text-white">
+        <!-- Steps 1-6 -->
         <div class="flex flex-col items-center">
             <div class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold">✓</div>
             <span class="text-sm mt-1 text-orange-500">Discover</span>
@@ -108,82 +108,75 @@
 
     <!-- Order Summary Sidebar -->
     <aside class="w-full lg:w-96 bg-white rounded-lg shadow p-6 flex flex-col gap-6 sticky top-6 self-start">
-
         <h2 class="text-2xl font-bold border-b pb-3">Order Summary</h2>
 
         <div id="sidebar-summary" class="space-y-2">
-            <!-- AJAX loaded summary -->
             @include('cart.summary')
         </div>
 
-        <a href="{{ route('cart.checkout') }}" class="block bg-orange-600 hover:bg-orange-700 text-white text-center py-3 rounded font-semibold mt-6 transition">Proceed to Checkout</a>
-
+        <a href="{{ route('cart.checkout') }}" class="block bg-orange-600 hover:bg-orange-700 text-white text-center py-3 rounded font-semibold mt-6 transition">
+            Proceed to Checkout
+        </a>
     </aside>
 </div>
 
 <script>
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-    async function updateCart(itemId, action) {
-        await fetch('/cart/update', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken
-            },
-            body: JSON.stringify({ id: itemId, action: action })
-        });
-        await refreshCart();
-    }
+// Update cart quantity
+async function updateCart(itemId, action) {
+    await fetch('/cart/update', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrfToken },
+        body: JSON.stringify({ id: itemId, action: action })
+    });
+    await refreshCart();
+}
 
-    async function removeItem(itemId) {
-        await fetch(`/cart/remove/${itemId}`, {
-            method: 'DELETE',
-            headers: { 'X-CSRF-TOKEN': csrfToken }
-        });
-        await refreshCart();
-    }
+// Remove item
+async function removeItem(itemId) {
+    await fetch(`/cart/remove/${itemId}`, { method: 'DELETE', headers: { 'X-CSRF-TOKEN': csrfToken } });
+    await refreshCart();
+}
 
-    async function refreshCart() {
-        // Refresh sidebar
-        const summary = await fetch('/cart/summary');
-        const html = await summary.text();
-        document.getElementById('sidebar-summary').innerHTML = html;
+// Refresh Cart
+async function refreshCart() {
+    // Sidebar
+    const summary = await fetch('/cart/summary');
+    document.getElementById('sidebar-summary').innerHTML = await summary.text();
 
-        // Refresh main cart quantities
-        const cartItemsContainer = document.getElementById('cart-items');
-        const response = await fetch('/cart/summary');
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(await response.text(), 'text/html');
-        const items = doc.querySelectorAll('[data-id]');
-        items.forEach(newItem => {
-            const id = newItem.dataset.id;
-            const existing = cartItemsContainer.querySelector(`[data-id="${id}"]`);
-            if(existing) {
-                const qty = newItem.querySelector('.quantity').innerText;
-                const total = newItem.querySelector('.item-total').innerText;
-                existing.querySelector('.quantity').innerText = qty;
-                existing.querySelector('.item-total').innerText = total;
-            }
-        });
-    }
+    // Main cart quantities
+    const response = await fetch('/cart/summary');
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(await response.text(), 'text/html');
+    const items = doc.querySelectorAll('[data-id]');
+    const cartContainer = document.getElementById('cart-items');
 
-    document.addEventListener('click', (e) => {
-        const parent = e.target.closest('[data-id]');
-        if(!parent) return;
-        const itemId = parent.dataset.id;
-
-        // Quantity buttons
-        if(e.target.classList.contains('qty-btn')) {
-            const action = e.target.dataset.action;
-            updateCart(itemId, action);
-        }
-
-        // Remove button
-        if(e.target.classList.contains('remove-btn')) {
-            removeItem(itemId);
+    items.forEach(newItem => {
+        const id = newItem.dataset.id;
+        const existing = cartContainer.querySelector(`[data-id="${id}"]`);
+        if(existing) {
+            existing.querySelector('.quantity').innerText = newItem.querySelector('.quantity').innerText;
+            existing.querySelector('.item-total').innerText = newItem.querySelector('.item-total').innerText;
         }
     });
+}
+
+// Event delegation for buttons
+document.addEventListener('click', e => {
+    const parent = e.target.closest('[data-id]');
+    if(!parent) return;
+    const itemId = parent.dataset.id;
+
+    if(e.target.classList.contains('qty-btn')) {
+        const action = e.target.dataset.action;
+        updateCart(itemId, action);
+    }
+
+    if(e.target.classList.contains('remove-btn')) {
+        removeItem(itemId);
+    }
+});
 </script>
 
 </body>

@@ -1,20 +1,35 @@
-<h2 class="text-2xl font-bold mb-4 text-orange-600">Order Summary</h2>
+{{-- cart/summary.blade.php --}}
 
-@if(count($cartItems) > 0)
-    @foreach($cartItems as $item)
-        <div class="flex justify-between mb-2 items-center">
-            <span>{{ $item->menu->name }} x{{ $item->quantity }}</span>
-            <div class="flex items-center gap-2">
-                <button data-cart-id="{{ $item->id }}" class="cart-remove-btn text-red-500 hover:text-red-700">Remove</button>
-                <span>Rs {{ number_format($item->menu->price * $item->quantity, 2) }}</span>
+@php
+    $subtotal = 0;
+@endphp
+
+@if($cartItems->isEmpty())
+    <p class="text-gray-500">Your cart is empty.</p>
+@else
+    <div class="space-y-4">
+        @foreach($cartItems as $item)
+            @php $itemTotal = $item->menu->price * $item->quantity; $subtotal += $itemTotal; @endphp
+            <div class="flex justify-between items-center">
+                <div class="flex flex-col">
+                    <span class="font-semibold">{{ $item->menu->name }} x {{ $item->quantity }}</span>
+                    <span class="text-sm text-gray-500">Rs {{ number_format($itemTotal, 2) }}</span>
+                </div>
+            </div>
+        @endforeach
+
+        <div class="border-t pt-2 mt-2">
+            <div class="flex justify-between font-bold text-orange-600">
+                <span>Subtotal</span>
+                <span>Rs {{ number_format($subtotal, 2) }}</span>
             </div>
         </div>
-    @endforeach
-    <hr class="my-2">
-    <div class="flex justify-between font-bold">
-        <span>Total</span>
-        <span>Rs {{ number_format($cartItems->sum(fn($i) => $i->menu->price * $i->quantity), 2) }}</span>
+
+       
+
+        <div class="flex justify-between font-bold text-black mt-2">
+            <span>Total</span>
+            <span>Rs {{ number_format($total, 2) }}</span>
+        </div>
     </div>
-@else
-    <p>Your cart is empty.</p>
 @endif

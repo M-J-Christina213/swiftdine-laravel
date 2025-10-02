@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use Illuminate\Http\Request;
+use App\Models\Menu;
 
 class CartController extends Controller
 {
@@ -15,40 +16,25 @@ class CartController extends Controller
     }
 
     // Add item to cart via AJAX
-    public function add(Request $request)
+    public function add(Request $request, Menu $menu)
     {
-        $menuId = $request->menu_id;
-        $quantity = $request->quantity;
+        $cartItem = Cart::where('user_id', auth()->id())
+                        ->where('menu_id', $menu->id)
+                        ->first();
 
-        if (!$menuId || !$quantity) {
-            return response()->json(['status' => 'error', 'message' => 'Invalid data']);
-        }
-
-        if (!auth()->check()) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Please log in to add items to your cart 😊'
-            ]);
-        }
-
-        $userId = auth()->id();
-
-        // Update quantity if exists, else create
-        $cart = Cart::where('user_id', $userId)->where('menu_id', $menuId)->first();
-
-        if($cart) {
-            $cart->increment('quantity', $quantity);
+        if ($cartItem) {
+            $cartItem->increment('quantity');
         } else {
             Cart::create([
-                'user_id' => $userId,
-                'menu_id' => $menuId,
-                'quantity' => $quantity
+                'user_id' => auth()->id(),
+                'menu_id' => $menu->id,
+                'quantity' => 1,
             ]);
         }
 
-
-        return response()->json(['status' => 'success']);
+        return redirect()->back()->with('success', 'Item added to cart!');
     }
+    
 
    
 
@@ -86,14 +72,10 @@ class CartController extends Controller
     }
 
     // Cart summary for sidebar (AJAX)
-    public function summary()
+        public function summary()
     {
-        if (!auth()->check()) {
-            return '<p>Please log in to see your cart 😊</p>';
-        }
-
-        $cartItems = Cart::where('user_id', auth()->id())->with('menu')->get();
-
+        $cartItems = Cart::with('menu')->where('user_id', auth()->id())->get();
         return view('cart.summary', compact('cartItems'));
     }
+
 }
