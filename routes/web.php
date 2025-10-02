@@ -115,11 +115,14 @@ Route::prefix('owner')->middleware(['auth'])->group(function () {
     Route::put('/staff/{staff}', [StaffController::class, 'update'])->name('owner.staff.update');
     Route::delete('/staff/{staff}', [StaffController::class, 'destroy'])->name('owner.staff.destroy');
 
-    // Manage Suppliers
-    
-    
-    Route::resource('suppliers', SupplierController::class)->except(['show']);
-    Route::get('/suppliers', [SupplierController::class, 'index'])->name('owner.suppliers');
+    // Suppliers Management
+    Route::get('/suppliers', [SupplierController::class, 'index'])->name('owner.suppliers'); // list all suppliers
+    Route::get('/suppliers/create', [SupplierController::class, 'create'])->name('owner.suppliers.create'); // show add form
+    Route::post('/suppliers', [SupplierController::class, 'store'])->name('owner.suppliers.store'); // save new supplier
+    Route::get('/suppliers/{supplier}/edit', [SupplierController::class, 'edit'])->name('owner.suppliers.edit'); // show edit form
+    Route::put('/suppliers/{supplier}', [SupplierController::class, 'update'])->name('owner.suppliers.update'); // update supplier
+    Route::delete('/suppliers/{supplier}', [SupplierController::class, 'destroy'])->name('owner.suppliers.destroy'); // delete supplier
+
 
 });
 

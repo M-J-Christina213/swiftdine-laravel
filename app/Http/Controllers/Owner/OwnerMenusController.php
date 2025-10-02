@@ -14,7 +14,7 @@ class OwnerMenusController extends Controller
     // Show all menus
     public function index()
     {
-        $menus = Menu::with(['restaurant', 'category'])->orderBy('id')->get();
+        $menus = Menu::with(['restaurant', 'category'])->orderByDesc('id')->get();
         return view('owner.menus.index', compact('menus'));
     }
 

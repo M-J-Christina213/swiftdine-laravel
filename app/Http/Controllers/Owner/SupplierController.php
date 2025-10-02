@@ -15,7 +15,7 @@ class SupplierController extends Controller
         return view('owner.suppliers.index', compact('suppliers'));
     }
 
-    // Show form to create a supplier
+    // Show form to create a supplier (optional, if you have separate create page)
     public function create()
     {
         return view('owner.suppliers.create');
@@ -26,22 +26,22 @@ class SupplierController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'contact_email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:500',
         ]);
 
         Supplier::create([
             'name' => $request->name,
-            'contact_email' => $request->email,
+            'contact_email' => $request->contact_email,
             'phone' => $request->phone,
             'address' => $request->address,
         ]);
 
-        return redirect()->route('owner.suppliers.index')->with('success', 'Supplier added successfully!');
+        return redirect()->route('owner.suppliers')->with('success', 'Supplier added successfully!');
     }
 
-    // Show form to edit
+    // Show form to edit supplier (optional, if separate edit page)
     public function edit(Supplier $supplier)
     {
         return view('owner.suppliers.edit', compact('supplier'));
@@ -52,25 +52,25 @@ class SupplierController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
+            'contact_email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'address' => 'required|string|max:500',
         ]);
 
         $supplier->update([
             'name' => $request->name,
-            'contact_email' => $request->email,
+            'contact_email' => $request->contact_email,
             'phone' => $request->phone,
             'address' => $request->address,
         ]);
 
-        return redirect()->route('owner.suppliers.index')->with('success', 'Supplier updated successfully!');
+        return redirect()->route('owner.suppliers')->with('success', 'Supplier updated successfully!');
     }
 
     // Delete supplier
     public function destroy(Supplier $supplier)
     {
         $supplier->delete();
-        return redirect()->route('owner.suppliers.index')->with('success', 'Supplier deleted successfully!');
+        return redirect()->route('owner.suppliers')->with('success', 'Supplier deleted successfully!');
     }
 }
