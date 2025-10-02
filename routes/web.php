@@ -45,7 +45,7 @@ Route::get('/cart/summary', [CartController::class, 'summary'])->name('cart.summ
 
 
 // Orders
-Route::get('/checkout', [OrderController::class, 'checkout'])->name('checkout');
+Route::get('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
 Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
 Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
 
