@@ -15,11 +15,12 @@
         <div>
             <label class="block mb-1">Upload Image (or enter URL)</label>
             <input type="file" name="image" accept="image/*" class="w-full border px-4 py-2 rounded">
-            <input type="text" name="image_url" value="{{ $restaurant->image_url }}" placeholder="Or paste image URL here" class="w-full border px-4 py-2 rounded mt-2">
+            <input type="text" name="image_path" value="{{ $restaurant->image_path }}" placeholder="Or paste image URL here" class="w-full border px-4 py-2 rounded mt-2">
 
-            @if($restaurant->image_url)
-                <img src="{{ asset('storage/' . $restaurant->image_url) }}" class="w-32 h-32 mt-2 object-cover rounded border">
+            @if($restaurant->image_path)
+                <img src="{{ asset('storage/' . $restaurant->image_path) }}" class="w-32 h-32 mt-2 object-cover rounded border">
             @endif
+
         </div>
 
         <div class="flex justify-between">

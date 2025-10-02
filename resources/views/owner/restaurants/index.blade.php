@@ -1,5 +1,14 @@
 <x-owner.sidebar/>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Restaurants </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
 <div class="max-w-6xl mx-auto p-6 ml-64">
     <h2 class="text-3xl font-bold text-orange-600 mb-6">My Restaurants</h2>
 
@@ -25,11 +34,14 @@
                     <tr class="border-b hover:bg-orange-50">
                         <td class="py-3 px-4">{{ $restaurant->id }}</td>
                         <td class="py-3 px-4">
-                            @if($restaurant->image_url)
-                                <img src="{{ asset('storage/' . $restaurant->image_url) }}" alt="{{ $restaurant->name }}" class="w-16 h-16 rounded object-cover border border-orange-300 shadow" />
+                            @if($restaurant->image_path)
+                                <img src="{{ asset('storage/' . $restaurant->image_path) }}" 
+                                    alt="{{ $restaurant->name }}" 
+                                    class="w-16 h-16 rounded object-cover border border-orange-300 shadow" />
                             @else
                                 <div class="w-16 h-16 flex items-center justify-center bg-orange-200 text-orange-600 rounded">No Img</div>
                             @endif
+
                         </td>
                         <td class="py-3 px-4">{{ $restaurant->name }}</td>
                         <td class="py-3 px-4">{{ $restaurant->location }}</td>
