@@ -3,6 +3,7 @@
 @section('title', 'Swiftdine')
 
 @section('content')
+
     <!-- Section 1: Hero full width -->
     <section
         class="relative bg-cover bg-center text-white w-full p-10 md:p-20 overflow-hidden flex flex-col md:flex-row items-center gap-10"
