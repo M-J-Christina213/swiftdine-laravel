@@ -80,51 +80,16 @@
     <!-- Menu Items -->
     <div class="flex-1">
         <h1 class="text-4xl font-bold text-orange-600 mb-6">Full Menu</h1>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @forelse($menus as $menu)
-            <div class="bg-white rounded-2xl shadow hover:shadow-xl transition p-4 flex flex-col">
-                <div class="relative">
-                    <img src="{{ asset('storage/' . $menu->image_url) }}" alt="{{ $menu->name }}" class="w-full h-48 object-cover rounded-lg">
-                    <span class="absolute top-2 right-2 bg-orange-500 text-white text-sm font-bold px-3 py-1 rounded-full">
-                        Rs {{ number_format($menu->price, 2) }}
-                    </span>
-                </div>
-                <div class="mt-4 flex flex-col flex-grow">
-                    <h3 class="text-lg font-semibold text-gray-800">{{ $menu->name }}</h3>
-                    <p class="text-gray-500 text-sm flex-grow">{{ $menu->description }}</p>
-                    <div class="flex items-center justify-between mt-3">
-                        <div class="flex items-center border rounded-lg">
-                            <button wire:click="$emit('decreaseQty', {{ $menu->id }})" class="px-3 py-1 text-gray-600 hover:bg-gray-100">-</button>
-                            <input type="text" value="1" class="w-12 text-center border-0" readonly>
-                            <button wire:click="$emit('increaseQty', {{ $menu->id }})" class="px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
-                        </div>
-                        <button 
-                        wire:click="$emitTo('cart', 'add', {{ $menu->id }})" 
-                        class="bg-orange-500 text-white px-4 py-2 rounded">
-                        Add to Cart
-                    </button>
-                    </div>
-                </div>
-            </div>
-            @empty
-            <div class="col-span-3 text-center p-10">
-                <h2 class="text-2xl font-bold text-orange-600 mb-4">Oops! Nothing here yet 🍽️</h2>
-                <p class="text-gray-500">Check back soon or explore other restaurants!</p>
-                <a href="{{ route('restaurants.index') }}" class="mt-4 inline-block bg-orange-600 text-white px-6 py-3 rounded-lg hover:bg-orange-700">
-                    Explore Restaurants
-                </a>
-            </div>
-            @endforelse
-        </div>
+        @livewire('menu-list')
     </div>
 
     <!-- Sidebar Cart -->
     <div id="cart-summary">
         @livewire('cart')
-
     </div>
 
 </div>
+
 
 @livewireScripts
 </body>
