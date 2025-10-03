@@ -79,9 +79,9 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     // Restaurants
     Route::get('/restaurants', [AdminRestaurantController::class, 'index'])->name('admin.restaurants');
     Route::get('/restaurants/create', [AdminRestaurantController::class, 'create'])->name('admin.restaurants.create');
-    Route::post('/restaurants', [AdminRestaurantController::class, 'store'])->name('admin.restaurants.store'); // <-- add store
+    Route::post('/restaurants', [AdminRestaurantController::class, 'store'])->name('admin.restaurants.store'); 
     Route::get('/restaurants/{restaurant}/edit', [AdminRestaurantController::class, 'edit'])->name('admin.restaurants.edit');
-    Route::put('/restaurants/{restaurant}', [AdminRestaurantController::class, 'update'])->name('admin.restaurants.update'); // <-- add update
+    Route::put('/restaurants/{restaurant}', [AdminRestaurantController::class, 'update'])->name('admin.restaurants.update'); 
     Route::delete('/restaurants/{restaurant}', [AdminRestaurantController::class, 'destroy'])->name('admin.restaurants.destroy');
 
     // Manage Orders
