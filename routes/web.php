@@ -18,6 +18,8 @@ use App\Http\Controllers\Owner\OwnerOrdersController;
 use App\Http\Controllers\Owner\OwnerRestaurantController;
 use App\Http\Controllers\Owner\SupplierController;
 use App\Http\Controllers\Admin\AdminOrderController;
+use App\Livewire\Cart;
+
 
 //Customers Routes
 
@@ -37,7 +39,10 @@ Route::get('/restaurant/{id}/menu', [MenuController::class, 'show'])->name('menu
 
 Route::get('/menus', [MenuController::class, 'index'])->name('menus.index');
 // Cart
-Route::get('/cart', [CartController::class, 'view'])->name('cart.index');
+
+
+Route::get('/cart', Cart::class)->name('cart.index');
+
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::put('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
@@ -46,7 +51,7 @@ Route::get('/cart/summary', [CartController::class, 'summary'])->name('cart.summ
 
 // Orders
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
-Route::post('/checkout', [OrderController::class, 'store'])->name('orders.store');
+Route::post('/order', [OrderController::class, 'store'])->name('orders.store');
 Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
 
 // Reservations

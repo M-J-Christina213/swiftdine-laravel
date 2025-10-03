@@ -52,7 +52,8 @@
         <span class="text-lg font-bold text-gray-900 mt-2 md:mt-0">
             Rs {{ number_format($cartItems->sum(fn($i) => $i->menu->price * $i->quantity),2) }}
         </span>
-        <a href="{{ route('cart.index') }}" 
+        
+        <a href="{{ route('cart.checkout') }}" 
            class="mt-4 md:mt-0 md:ml-4 block text-center bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-orange-700 transition">
            Proceed to Checkout
         </a>

@@ -33,7 +33,7 @@
       </svg> Back
     </a>
   </div>
-  <a href="{{ route('cart.index') }}" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+  <a href="{{ route('cart.checkout') }}" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
     Proceed to Cart →
   </a>
 </div>
