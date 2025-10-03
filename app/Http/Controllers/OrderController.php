@@ -7,6 +7,8 @@ use App\Models\Order;
 use Illuminate\Support\Facades\Session;
 use Carbon\Carbon;
 use MongoDB\Client as MongoClient;
+use MongoDB\BSON\UTCDateTime;
+
 
 class OrderController extends Controller
 {
@@ -117,7 +119,7 @@ class OrderController extends Controller
             'delivery_fee' => $deliveryFee,
             'total' => $total,
             'status' => 'received',
-            'created_at' => new \MongoDB\BSON\UTCDateTime(),
+            'created_at' => now()->toDateTimeString(),
         ]);
 
         // Clear cart

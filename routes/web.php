@@ -19,6 +19,7 @@ use App\Http\Controllers\Owner\OwnerRestaurantController;
 use App\Http\Controllers\Owner\SupplierController;
 use App\Http\Controllers\Admin\AdminOrderController;
 use App\Livewire\Cart;
+use MongoDB\Client as MongoClient;
 
 
 //Customers Routes
@@ -166,3 +167,14 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
+
+
+
+Route::get('/mongo-orders', function () {
+    $mongo = new MongoClient(env('MONGO_URI'));
+    $orders = $mongo->selectDatabase('swiftdine_db')
+                    ->orders
+                    ->find()
+                    ->toArray();
+    return response()->json($orders);
+});
