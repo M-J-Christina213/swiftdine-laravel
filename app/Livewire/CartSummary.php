@@ -10,7 +10,8 @@ class CartSummary extends Component
 {
     public $cartItems;
     public $appliedPromo = null;
-    
+    public $deliveryMethod = 'delivery'; // default
+
     public $promoCodes = [
         'ABC123' => 0.1,   // 10%
         'SAVE20' => 0.2,   // 20%
@@ -19,7 +20,7 @@ class CartSummary extends Component
         'SWIFT10' => 0.5,  // 50%
     ];
 
-    public $deliveryFee = 300; // default
+    public $deliveryFee = 300; 
     public $discount = 0;
 
     protected $listeners = ['cartUpdated' => 'loadCart'];
@@ -36,6 +37,12 @@ class CartSummary extends Component
             : collect();
     }
 
+    public function updatedDeliveryMethod($method)
+    {
+        // Adjust delivery fee
+        $this->deliveryFee = ($method === 'delivery') ? 300 : 0;
+    }
+
     public function getSubtotalProperty()
     {
         return $this->cartItems->sum(fn($item) => $item->menu->price * $item->quantity);
@@ -43,7 +50,7 @@ class CartSummary extends Component
 
     public function getTaxProperty()
     {
-        return $this->subtotal * 0.1;
+        return $this->subtotal * 0.1; // 10% tax
     }
 
     public function getTotalProperty()
@@ -63,7 +70,15 @@ class CartSummary extends Component
 
     public function render()
     {
+        // Update discount dynamically
         $this->discount = $this->appliedPromo ? $this->subtotal * $this->promoCodes[$this->appliedPromo] : 0;
-        return view('livewire.cart-summary');
+
+        return view('livewire.cart-summary', [
+            'subtotal' => $this->subtotal,
+            'tax'      => $this->tax,
+            'total'    => $this->total,
+            'deliveryFee' => $this->deliveryFee,
+            'discount' => $this->discount,
+        ]);
     }
 }

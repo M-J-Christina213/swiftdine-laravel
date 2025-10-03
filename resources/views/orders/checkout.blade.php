@@ -72,57 +72,102 @@
                 <textarea placeholder="Order Notes" rows="3" class="mt-4 w-full border border-gray-300 rounded p-2"></textarea>
             </div>
 
-            <!-- Payment Details -->
-            <div class="bg-white p-6 rounded shadow">
-                <h2 class="text-2xl font-semibold mb-4">Payment Details</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium mb-1">Select Payment Method:</label>
-                        <select class="w-full border border-gray-300 rounded p-2">
-                            <option value="card">Credit / Debit Card</option>
-                            <option value="cod">Cash on Delivery</option>
-                            <option value="bank">Bank Transfer</option>
-                        </select>
-                    </div>
-                    <div class="space-y-2">
-                        <input type="text" placeholder="Cardholder Name" class="w-full border border-gray-300 rounded p-2">
-                        <input type="text" placeholder="Card Number" class="w-full border border-gray-300 rounded p-2">
-                        <div class="flex gap-4">
-                            <input type="text" placeholder="MM/YY" class="w-1/2 border border-gray-300 rounded p-2">
-                            <input type="text" placeholder="CVV" class="w-1/2 border border-gray-300 rounded p-2">
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <!-- Payment Details -->
+<div class="bg-white p-6 rounded shadow" x-data="{ paymentMethod: 'card' }">
+    <h2 class="text-2xl font-semibold mb-4">Payment Details</h2>
+    
+    <div class="space-y-4">
+        <!-- Payment method selector -->
+        <div>
+            <label class="block text-sm font-medium mb-1">Select Payment Method:</label>
+            <select class="w-full border border-gray-300 rounded p-2" x-model="paymentMethod">
+                <option value="card">Credit / Debit Card</option>
+                <option value="cod">Cash on Delivery</option>
+                <option value="bank">Bank Transfer</option>
+            </select>
+        </div>
 
-            <!-- Delivery Options -->
-            <div class="bg-white p-6 rounded shadow">
-                <h2 class="text-2xl font-semibold mb-4">Delivery Options</h2>
-                <div class="space-y-4">
-                    <label class="flex items-start p-4 border border-orange-500 rounded bg-orange-100">
-                        <input type="radio" name="method" class="mr-3 mt-1" checked>
-                        <div>
-                            <p class="font-semibold">Delivery (Bike)</p>
-                            <p class="text-sm text-gray-600">We’ll deliver your order to the address provided. ETA: 30 mins</p>
-                        </div>
-                    </label>
-                    <label class="flex items-start p-4 border border-gray-300 rounded">
-                        <input type="radio" name="method" class="mr-3 mt-1">
-                        <div>
-                            <p class="font-semibold">Pickup</p>
-                            <p class="text-sm text-gray-600">Pick up your order from our restaurant.</p>
-                        </div>
-                    </label>
-                    <label class="flex items-start p-4 border border-gray-300 rounded">
-                        <input type="radio" name="method" class="mr-3 mt-1">
-                        <div>
-                            <p class="font-semibold">Dine-in</p>
-                            <p class="text-sm text-gray-600">Reserve a table at our restaurant.</p>
-                        </div>
-                    </label>
-                </div>
+        <!-- Credit / Debit Card details -->
+        <div x-show="paymentMethod === 'card'" class="space-y-2">
+            <input type="text" placeholder="Cardholder Name" class="w-full border border-gray-300 rounded p-2">
+            <input type="text" placeholder="Card Number" class="w-full border border-gray-300 rounded p-2">
+            <div class="flex gap-4">
+                <input type="text" placeholder="MM/YY" class="w-1/2 border border-gray-300 rounded p-2">
+                <input type="text" placeholder="CVV" class="w-1/2 border border-gray-300 rounded p-2">
             </div>
         </div>
+
+        <!-- Cash on Delivery info -->
+        <div x-show="paymentMethod === 'cod'" class="p-3 bg-yellow-100 border border-yellow-300 rounded text-gray-800">
+            Pay in cash when your order is delivered. No online details required.
+        </div>
+
+        <!-- Bank Transfer info -->
+        <div x-show="paymentMethod === 'bank'" class="p-3 bg-green-100 border border-green-300 rounded text-gray-800">
+            <p>Please transfer the total amount to the following SwiftDine bank account:</p>
+            <ul class="mt-2 list-disc list-inside">
+                <li>Bank: Commercial Bank of Ceylon</li>
+                <li>Account Name: SwiftDine (Pvt) Ltd</li>
+                <li>Account Number: 0123456789</li>
+                <li>Branch: Colombo 03</li>
+                <li>SWIFT Code: CCEYLKLX</li>
+            </ul>
+            <p class="mt-2 text-sm text-gray-700">
+                Once the payment is done, kindly upload your payment proof or notify us.
+            </p>
+        </div>
+
+    </div>
+</div>
+
+<script src="//unpkg.com/alpinejs" defer></script>
+
+<!-- Delivery Options -->
+<div class="bg-white p-6 rounded shadow" x-data="{ deliveryMethod: 'delivery' }">
+    <h2 class="text-2xl font-semibold mb-4">Delivery Options</h2>
+    <div class="space-y-4">
+
+        <label class="flex items-start p-4 border rounded" 
+               :class="deliveryMethod === 'delivery' ? 'border-orange-500 bg-orange-100' : 'border-gray-300'">
+            <input type="radio" name="method" value="delivery" x-model="deliveryMethod" class="mr-3 mt-1">
+            <div>
+                <p class="font-semibold">Delivery (Bike)</p>
+                <p class="text-sm text-gray-600">We’ll deliver your order to the address provided. ETA: 30 mins</p>
+            </div>
+        </label>
+
+        <label class="flex items-start p-4 border rounded" 
+               :class="deliveryMethod === 'pickup' ? 'border-orange-500 bg-orange-100' : 'border-gray-300'">
+            <input type="radio" name="method" value="pickup" x-model="deliveryMethod" class="mr-3 mt-1">
+            <div>
+                <p class="font-semibold">Pickup</p>
+                <p class="text-sm text-gray-600">Pick up your order from our restaurant.</p>
+            </div>
+        </label>
+
+        <label class="flex items-start p-4 border rounded" 
+               :class="deliveryMethod === 'dinein' ? 'border-orange-500 bg-orange-100' : 'border-gray-300'">
+            <input type="radio" name="method" value="dinein" x-model="deliveryMethod" class="mr-3 mt-1">
+            <div>
+                <p class="font-semibold">Dine-in</p>
+                <p class="text-sm text-gray-600">Reserve a table at our restaurant.</p>
+            </div>
+        </label>
+
+    </div>
+
+    <!-- Friendly message for non-delivery options -->
+    <div class="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded text-gray-800"
+         x-show="deliveryMethod === 'pickup' || deliveryMethod === 'dinein'">
+        Currently we have Delivery options available, but we know you’re excited to try out Pickup or Dine-in! 😊
+    </div>
+</div>
+
+<!-- Add Alpine.js -->
+<script src="//unpkg.com/alpinejs" defer></script>
+
+</div>
+        
 
         <!-- Right side: Livewire Order Summary -->
         <div>
