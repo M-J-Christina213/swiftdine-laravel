@@ -46,6 +46,7 @@
 @endphp
 
 <div class="max-w-6xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <!-- Left/Main Column: All Order Info -->
   <div class="lg:col-span-2 space-y-6">
     <!-- Order Info -->
     <div class="bg-white rounded-lg shadow p-6">
@@ -57,45 +58,7 @@
       <p class="mt-3 text-gray-700 text-sm">Thank you for your order! We are preparing your meal and will update you once it’s on the way.</p>
     </div>
 
-    <!-- Order Summary from Cart -->
-    <div class="bg-white rounded-lg shadow p-6 space-y-4">
-      <h2 class="text-xl font-semibold">Order Summary</h2>
-      @foreach ($orderItems as $item)
-      <div class="flex justify-between items-center border-b pb-4">
-        <div class="flex items-center gap-4">
-          <img src="/assets/images/menus/{{ $item['image'] }}" alt="{{ $item['name'] }}" class="w-20 h-20 rounded" />
-          <div>
-            <h3 class="font-bold text-sm">{{ $item['name'] }}</h3>
-            <p class="text-xs text-gray-500">Prep: {{ $item['prep_time'] ?? 'N/A' }}</p>
-          </div>
-        </div>
-        <div class="text-sm text-right">
-          <p>{{ $item['quantity'] }} × Rs {{ number_format($item['price']) }}</p>
-          <strong class="text-gray-800">Rs {{ number_format($item['quantity'] * $item['price']) }}</strong>
-        </div>
-      </div>
-      @endforeach
-
-      <div class="pt-4 border-t space-y-1 text-sm">
-        <div class="flex justify-between"><span>Subtotal</span><span>Rs {{ number_format($subtotal) }}</span></div>
-        <div class="flex justify-between"><span>Tax (10%)</span><span>Rs {{ number_format($tax) }}</span></div>
-        <div class="flex justify-between"><span>Delivery Fee</span><span>Rs {{ number_format($deliveryFee) }}</span></div>
-        <div class="flex justify-between font-semibold text-lg text-orange-600 border-t pt-2"><span>Total</span><span>Rs {{ number_format($total) }}</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Right Sidebar: Payment & Customer -->
-  <div class="space-y-6">
-    <div class="bg-white rounded-lg shadow p-6">
-      <h3 class="text-lg font-semibold mb-4">Order Details</h3>
-      <p class="text-sm text-gray-700 mb-2"><strong>Fulfillment:</strong> <span class="text-orange-600">{{ $fulfillment }}</span></p>
-      <p class="text-sm text-gray-700 mb-2"><strong>Delivery Address:</strong> {{ $deliveryAddress }}</p>
-      <p class="text-sm text-gray-700 mb-2"><strong>Estimated Arrival:</strong> {{ $estimatedArrival }}</p>
-      <p class="text-sm text-gray-700"><strong>Instructions:</strong> {{ $instructions ?? 'None' }}</p>
-    </div>
-
-    <!-- Payment Summary from Checkout -->
+    <!-- Payment Summary -->
     <div class="bg-white rounded-lg shadow p-6">
       <h3 class="text-lg font-semibold mb-4">Payment Summary</h3>
       <div class="flex justify-between items-center text-sm">
@@ -122,6 +85,23 @@
       <p class="text-sm text-gray-700 mb-1"><strong>Name:</strong> {{ $customerName }}</p>
       <p class="text-sm text-gray-700 mb-1"><strong>Phone:</strong> {{ $customerPhone }}</p>
       <p class="text-sm text-gray-700"><strong>Email:</strong> {{ $customerEmail }}</p>
+    </div>
+
+    <!-- Delivery Instructions -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold mb-4">Delivery Info</h3>
+        <p class="text-sm text-gray-700 mb-1"><strong>Fulfillment:</strong> {{ $fulfillment }}</p>
+        <p class="text-sm text-gray-700 mb-1"><strong>Delivery Address:</strong> {{ $deliveryAddress }}</p>
+        <p class="text-sm text-gray-700 mb-1"><strong>Estimated Arrival:</strong> {{ $estimatedArrival }}</p>
+        <p class="text-sm text-gray-700"><strong>Instructions:</strong> {{ $instructions ?? 'None' }}</p>
+    </div>
+  </div>
+
+  <!-- Right Column: Only Cart Summary -->
+  <div class="lg:sticky lg:top-20 space-y-6">
+    <div class="bg-white rounded-lg shadow p-6">
+        <h3 class="text-lg font-semibold mb-4">Your Cart</h3>
+        @livewire('cart-summary')
     </div>
   </div>
 </div>
