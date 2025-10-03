@@ -52,6 +52,7 @@ Route::get('/cart/summary', [CartController::class, 'summary'])->name('cart.summ
 // Orders
 Route::get('/checkout', [OrderController::class, 'checkout'])->name('cart.checkout');
 Route::post('/order', [OrderController::class, 'store'])->name('orders.store');
+Route::post('/order/confirmation', [OrderController::class, 'confirm'])->name('order.confirmation');
 Route::get('/orders/track', [OrderController::class, 'track'])->name('orders.track');
 
 // Reservations

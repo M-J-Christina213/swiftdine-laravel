@@ -23,5 +23,14 @@ class OrderController extends Controller
     public function track()
 {
     return view('orders.track'); 
+
 }
+
+public function confirm(Request $request) {
+    // Process the order here
+    return view('orders.confirmation', [
+        // pass order details
+    ]);
+}
+
 }
