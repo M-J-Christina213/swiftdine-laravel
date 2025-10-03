@@ -73,16 +73,31 @@ class OrderController extends Controller
     // Save order to MySQL
     public function store(Request $request)
     {
+        $request->validate([
+        'name' => 'required|string|max:255',
+        'phone' => 'required|string|max:15',
+        'address' => 'required|string|max:255',
+        'payment_method' => 'required|string|in:card,cod,bank',
+        'delivery_method' => 'required|string|in:delivery,pickup,dinein',
+    ]);
+
         $cartItems = session('cart.items', []);
-        $customer = $request->only(['name', 'phone', 'email', 'address', 'payment_method', 'delivery_method']);
+        if (empty($cartItems)) {
+            return redirect()->route('cart.index')->with('error', 'Your cart is empty.');
+        }
+
+        $customer = $request->only(['name', 'phone', 'email', 'address', 'city', 'postal_code', 'instructions', 'payment_method', 'delivery_method']);
         $subtotal = collect($cartItems)->sum(fn($item) => $item['price'] * $item['quantity']);
         $tax = round($subtotal * 0.1);
         $deliveryFee = 200;
         $total = $subtotal + $tax + $deliveryFee;
 
+        $orderNumber = rand(100000, 999999);
+        $now = Carbon::now();
+
         // Save to MySQL
         $order = Order::create([
-            'order_number' => rand(100000, 999999),
+            'order_number' => $orderNumber,
             'customer_name' => $customer['name'],
             'customer_email' => $customer['email'],
             'customer_phone' => $customer['phone'],
@@ -96,7 +111,6 @@ class OrderController extends Controller
             'status' => 'received',
         ]);
 
-        // Save order items in pivot table
         foreach ($cartItems as $item) {
             $order->items()->create([
                 'menu_id' => $item['menu_id'],
@@ -111,7 +125,7 @@ class OrderController extends Controller
         $mongoDB = $mongo->selectDatabase('swiftdine_db');
         $mongoOrders = $mongoDB->orders;
         $mongoOrders->insertOne([
-            'order_number' => $order->order_number,
+            'order_number' => $orderNumber,
             'customer' => $customer,
             'items' => $cartItems,
             'subtotal' => $subtotal,
@@ -125,13 +139,35 @@ class OrderController extends Controller
         // Clear cart
         session()->forget('cart.items');
 
-        return redirect()->route('order.confirmation')->with([
-            'orderNumber' => $order->order_number,
+        // **Pass all required data to the confirmation view directly**
+        return view('orders.confirmation', [
             'orderItems' => $cartItems,
             'subtotal' => $subtotal,
             'tax' => $tax,
             'deliveryFee' => $deliveryFee,
             'total' => $total,
+            'orderNumber' => $orderNumber,
+            'estimatedDelivery' => '30-40 mins',
+            'estimatedArrival' => '30-40 mins',
+            'orderDateTime' => $now->format('d M Y | g:i A'),
+            'fulfillment' => $customer['delivery_method'] ?? 'Delivery',
+            'deliveryAddress' => $customer['address'] ?? 'N/A',
+            'instructions' => $customer['instructions'] ?? 'None',
+            'cardLast4' => $customer['payment_method'] === 'card' ? substr($customer['card_number'] ?? '4242424242424242', -4) : null,
+            'cardExpiry' => $customer['payment_method'] === 'card' ? ($customer['expiry'] ?? '09/27') : null,
+            'customerName' => $customer['name'] ?? 'Guest',
+            'customerPhone' => $customer['phone'] ?? 'N/A',
+            'customerEmail' => $customer['email'] ?? 'N/A',
+            'orderReceivedTime' => $now->format('g:i A'),
+            'orderConfirmedTime' => $now->addMinutes(3)->format('g:i A'),
+            'outForDeliveryEst' => $now->addMinutes(45)->format('g:i A'),
         ]);
     }
+
+    public function track()
+{
+    
+    return view('orders.track'); 
+}
+
 }

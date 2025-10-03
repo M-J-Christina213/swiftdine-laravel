@@ -3,38 +3,48 @@
 @section('content')
 <div class="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6">
 
-    <!--  Sidebar Filters -->
+    <!-- Sidebar Static Categories -->
     <aside class="w-full lg:w-1/4 bg-white rounded-lg shadow-md p-4 space-y-6">
-        <h2 class="text-xl font-bold">Advanced Filters</h2>
-        {{-- Static filters can stay as is --}}
-    </aside>
+    <h2 class="text-xl font-bold mb-4">Categories</h2>
+    <ul class="space-y-2">
+        <li>
+            <a href="{{ route('restaurants.browseMenus', ['category' => 'all']) }}" 
+               class="block px-3 py-2 rounded hover:bg-orange-100 transition">
+                All
+            </a>
+        </li>
+        @foreach($categories as $category)
+            <li>
+                <a href="{{ route('restaurants.browseMenus', ['category' => $category->id]) }}" 
+                   class="block px-3 py-2 rounded hover:bg-orange-100 transition">
+                    {{ $category->name }}
+                </a>
+            </li>
+        @endforeach
+    </ul>
+</aside>
+
 
     <!-- Main Menu Grid -->
     <section class="w-full lg:w-3/4">
         <h1 class="text-3xl font-bold mb-6">Browse Our Menu</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            @foreach ($menuItems as $item)
-                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
-                    <img src="{{ filter_var($item->image, FILTER_VALIDATE_URL) ? $item->image : asset('images/' . $item->image) }}" 
-                         alt="{{ $item->name }}" 
-                         class="w-full h-48 object-cover">
+            @foreach ($menus as $item)
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+                <img src="{{ Storage::url($item->image_url) }}" 
+                    alt="{{ $item->name }}" 
+                    class="w-full h-48 object-cover">
 
-                    <div class="p-4">
-                        <h2 class="text-xl font-semibold">{{ $item->name }}</h2>
-                        <p class="text-gray-600 mb-4">LKR {{ number_format($item->price, 2) }}</p>
-                        
-                        <form method="POST" action="{{ route('cart.add') }}">
-                            @csrf
-                            <input type="hidden" name="item_name" value="{{ $item->name }}">
-                            <input type="hidden" name="item_price" value="{{ $item->price }}">
-                            <button type="submit" class="w-full bg-orange-500 text-white py-2 px-4 rounded flex items-center justify-center hover:bg-orange-600 transition">
-                                <i class="fas fa-cart-plus mr-2"></i> Add to Cart
-                            </button>
-                        </form>
-                    </div>
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold">{{ $item->name }}</h2>
+                    <p class="text-gray-600 mb-2">LKR {{ number_format($item->price, 2) }}</p>
+                    <p class="text-gray-500 text-sm">{{ $item->description }}</p>
                 </div>
-            @endforeach
+            </div>
+        @endforeach
+
+
         </div>
     </section>
 

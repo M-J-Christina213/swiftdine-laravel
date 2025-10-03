@@ -7,12 +7,13 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
-        "mongodb/mongodb": "^1.15",
+        "jenssegers/mongodb-next": "^6.0",
         "laravel/framework": "^12.0",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.2",
         "laravel/tinker": "^2.10.1",
-        "livewire/livewire": "^3.6"
+        "livewire/livewire": "^3.6",
+        "mongodb/mongodb": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

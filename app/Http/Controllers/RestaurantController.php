@@ -6,6 +6,8 @@ use App\Models\Restaurant;
 use App\Models\Menu; 
 use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use App\Models\Category;
 
 
 class RestaurantController extends Controller
@@ -25,11 +27,21 @@ class RestaurantController extends Controller
     }
 
    // Browse all menu items
-    public function browseMenus()
+    public function browseMenus(Request $request)
     {
-        $menuItems = Menu::all(); // Fetch all menu items
-        return view('restaurants.browseMenus', compact('menuItems'));
+        // Fetch all categories for sidebar
+        $categories = Category::all();
+
+        // If category is selected, filter menus; otherwise get all
+        if ($request->has('category') && $request->category != 'all') {
+            $menus = Menu::where('category_id', $request->category)->get();
+        } else {
+            $menus = Menu::all();
+        }
+
+        return view('restaurants.browseMenus', compact('menus', 'categories'));
     }
+
 
     public function menu($restaurantId)
     {
