@@ -120,7 +120,8 @@
 
     <!-- Sidebar Cart -->
     <div id="cart-summary">
-        <livewire:cart />
+        @livewire('cart')
+
     </div>
 
 </div>
