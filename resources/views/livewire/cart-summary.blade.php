@@ -64,7 +64,7 @@
             </div>
             <div class="flex justify-between">
                 <span>Discount</span>
-                <span>- Rs {{ number_format($discount ?? ($appliedPromo ? $this->subtotal * $promoCodes[$appliedPromo] : 0), 2) }}</span>
+                <span>- Rs {{ number_format($discount ?? ($appliedPromo && is_string($appliedPromo) && isset($promoCodes[$appliedPromo]) ? $this->subtotal * $promoCodes[$appliedPromo] : 0), 2) }}</span>
             </div>
             <div class="flex justify-between">
                 <span>Delivery Fee</span>
