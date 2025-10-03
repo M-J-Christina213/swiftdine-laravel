@@ -65,4 +65,23 @@ class Cart extends Component
     {
         return view('livewire.cart');
     }
+
+    public function increment($itemId)
+{
+    $item = CartItem::where('id', $itemId)->where('user_id', Auth::id())->first();
+    if ($item) {
+        $item->increment('quantity');
+        $this->loadCart();
+    }
+}
+
+public function decrement($itemId)
+{
+    $item = CartItem::where('id', $itemId)->where('user_id', Auth::id())->first();
+    if ($item && $item->quantity > 1) {
+        $item->decrement('quantity');
+        $this->loadCart();
+    }
+}
+
 }

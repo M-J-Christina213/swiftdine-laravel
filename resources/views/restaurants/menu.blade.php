@@ -34,7 +34,7 @@
     </a>
   </div>
   <a href="{{ route('cart.index') }}" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-    Proceed to Checkout →
+    Proceed to Cart →
   </a>
 </div>
 

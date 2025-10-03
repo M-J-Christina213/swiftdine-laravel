@@ -10,16 +10,12 @@
             <div class="mt-4 flex flex-col flex-grow">
                 <h3 class="text-lg font-semibold text-gray-800">{{ $menu->name }}</h3>
                 <p class="text-gray-500 text-sm flex-grow">{{ $menu->description }}</p>
-                <div class="flex items-center justify-between mt-3">
-                    <div class="flex items-center border rounded-lg">
-                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100">-</button>
-                        <input type="text" value="1" class="w-12 text-center border-0" readonly>
-                        <button class="px-3 py-1 text-gray-600 hover:bg-gray-100">+</button>
-                    </div>
-                    <button wire:click="addToCart({{ $menu->id }})" class="bg-orange-500 text-white px-4 py-2 rounded">
-                        Add to Cart
+               <br>
+                    
+                    <button wire:click="addToCart({{ $menu->id }})" class="bg-orange-500 text-white px-4 py-2 rounded justify-center">
+                       Add to Cart 🛒
                     </button>
-                </div>
+                
             </div>
         </div>
     @empty
