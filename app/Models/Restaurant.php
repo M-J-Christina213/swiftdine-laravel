@@ -9,33 +9,16 @@ class Restaurant extends Model
 {
     use HasFactory;
 
-    /**
-     * The attributes that are mass assignable.
-     */
     protected $fillable = [
         'name',
+        'description',
         'location',
-        'cuisine',
         'rating',
-        'owner_id',
-        'image_path',
+        'image_url',
     ];
 
-    /**
-     * Relationships
-     */
     public function menus()
     {
-        return $this->hasMany(Menu::class);
-    }
-
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    public function owner()
-    {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->hasMany(Menu::class, 'restaurant_id');
     }
 }

@@ -11,8 +11,19 @@ class RestaurantController extends Controller
 {
     public function index()
 {
-    $restaurants = Restaurant::with('menuItems', 'deals')->get();
+    $restaurants = Restaurant::with('menus')->get();
+
     return response()->json($restaurants);
 }
+
+public function show($id)
+{
+    $restaurant = Restaurant::find($id);
+    if (!$restaurant) {
+        return response()->json(['message' => 'Not found'], 404);
+    }
+    return response()->json($restaurant);
+}
+
 
 }

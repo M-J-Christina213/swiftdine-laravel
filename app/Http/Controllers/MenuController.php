@@ -23,6 +23,13 @@ class MenuController extends Controller
     return view('restaurants.menu', compact('restaurant', 'menus', 'cartItems'));
 }
 
+public function getByCategory($id)
+{
+    // Fetch menus that belong to this category ID
+    $menus =Menu::where('category_id', $id)->get();
+
+    return response()->json($menus);
+}
 
 
 }
