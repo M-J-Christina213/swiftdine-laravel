@@ -5,21 +5,21 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Models\User;
-use App\Models\Restaurant;
 
 class AdminOrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['user', 'restaurant'])->orderBy('created_at', 'desc')->get();
+        // Admin sees all orders, newest first
+        $orders = Order::orderBy('created_at', 'desc')->get();
+
         return view('admin.orders.index', compact('orders'));
     }
 
     public function update(Request $request, Order $order)
     {
         $request->validate([
-            'status' => 'required|in:pending,completed,cancelled',
+            'status' => 'required|in:Pending,Completed,Cancelled',
         ]);
 
         $order->update([

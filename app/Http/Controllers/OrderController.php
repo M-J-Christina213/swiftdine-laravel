@@ -164,10 +164,17 @@ class OrderController extends Controller
         ]);
     }
 
-    public function track()
+public function track()
 {
-    
-    return view('orders.track'); 
+    // Fetch the latest order with its items
+    $order = Order::with('items')->latest()->first();
+
+    // Pass to view; if no order, pass null
+    return view('orders.track', [
+        'latestOrder' => $order
+    ]);
 }
+
+
 
 }

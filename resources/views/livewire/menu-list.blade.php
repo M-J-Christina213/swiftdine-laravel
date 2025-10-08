@@ -11,11 +11,19 @@
                 <h3 class="text-lg font-semibold text-gray-800">{{ $menu->name }}</h3>
                 <p class="text-gray-500 text-sm flex-grow">{{ $menu->description }}</p>
                <br>
-                    
+
+               @auth
+                    <!-- If user is logged in -->
                     <button wire:click="addToCart({{ $menu->id }})" class="bg-orange-500 text-white px-4 py-2 rounded justify-center">
-                       Add to Cart 🛒
+                        Add to Cart 🛒
                     </button>
-                
+               @else
+                    <!-- If user is not logged in -->
+                    <button onclick="alert('You must be logged in to add items to the cart.')" 
+                            class="bg-gray-400 cursor-not-allowed text-white px-4 py-2 rounded justify-center">
+                        Add to Cart 🛒
+                    </button>
+               @endauth
             </div>
         </div>
     @empty

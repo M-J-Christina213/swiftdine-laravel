@@ -65,18 +65,18 @@ Route::post('/reservations', [ReservationController::class, 'store'])->name('res
 Route::get('/deals', [DealController::class, 'index'])->name('deals.index');
 
 Route::get('/food-guide', [FoodGuideController::class, 'index'])->name('guide.index');
+Route::prefix('admin')->middleware(['auth', 'can:admin'])->group(function () {
 
-// Admin routes
-Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
+    // Dashboard
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
-    // Users
+    // Users Management
     Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
     Route::post('/users', [AdminController::class, 'addUser'])->name('admin.users.add');
     Route::put('/users/{user}', [AdminController::class, 'updateUser'])->name('admin.users.update');
     Route::delete('/users/{user}', [AdminController::class, 'deleteUser'])->name('admin.users.delete');
 
-    // Restaurants
+    // Restaurants Management
     Route::get('/restaurants', [AdminRestaurantController::class, 'index'])->name('admin.restaurants');
     Route::get('/restaurants/create', [AdminRestaurantController::class, 'create'])->name('admin.restaurants.create');
     Route::post('/restaurants', [AdminRestaurantController::class, 'store'])->name('admin.restaurants.store'); 
@@ -84,11 +84,12 @@ Route::prefix('admin')->middleware(['auth','can:admin'])->group(function () {
     Route::put('/restaurants/{restaurant}', [AdminRestaurantController::class, 'update'])->name('admin.restaurants.update'); 
     Route::delete('/restaurants/{restaurant}', [AdminRestaurantController::class, 'destroy'])->name('admin.restaurants.destroy');
 
-    // Manage Orders
+    // Orders Management
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     Route::put('/orders/{order}', [AdminOrderController::class, 'update'])->name('admin.orders.update');
     Route::delete('/orders/{order}', [AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
-    //discounts, reviews
+
+    // Discounts & Reviews
     Route::get('/discounts', [AdminController::class, 'discounts'])->name('admin.discounts');
     Route::get('/reviews', [AdminController::class, 'reviews'])->name('admin.reviews');
 });

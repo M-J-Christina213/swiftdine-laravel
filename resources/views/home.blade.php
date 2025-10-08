@@ -85,7 +85,7 @@
 
             <!-- Offer 1 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
-                <img src="{{ asset('images/offer1.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
+                <img src="{{ asset('images/home/offer1.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
                 <div class="p-5">
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">20% Off on Sri Lankan Meals</h3>
                     <p class="text-orange-500 font-bold text-lg mb-1">Discount: 20%</p>
@@ -98,7 +98,7 @@
 
             <!-- Offer 2 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
-                <img src="{{ asset('images/offer2.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
+                <img src="{{ asset('images/home/offer2.png') }}" alt="Offer Image" class="w-full h-48 object-cover">
                 <div class="p-5">
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Buy 1 Get 1 Free - Pizza</h3>
                     <p class="text-orange-500 font-bold text-lg mb-1">Special Deal</p>
@@ -111,7 +111,7 @@
 
             <!-- Offer 3 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden transition-transform hover:scale-[1.02]">
-                <img src="{{ asset('images/offer3.jpg') }}" alt="Offer Image" class="w-full h-48 object-cover">
+                <img src="{{ asset('images/home/offer3.png') }}" alt="Offer Image" class="w-full h-48 object-cover">
                 <div class="p-5">
                     <h3 class="text-xl font-semibold text-gray-800 mb-2">Free Delivery on Orders Above LKR 3000</h3>
                     <p class="text-orange-500 font-bold text-lg mb-1">Save on Delivery</p>
@@ -127,7 +127,7 @@
 </div>
 
 <!-- Popup -->
-<div id="offerPopup" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div id="offerPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
     <div class="bg-white rounded-xl shadow-lg p-6 max-w-sm text-center">
         <h2 class="text-xl font-semibold text-green-600 mb-3">🎁 Offer Claimed!</h2>
         <p id="popupText" class="text-gray-700 mb-4">You have claimed the offer.</p>
@@ -137,17 +137,20 @@
     </div>
 </div>
 
-<!-- Script -->
 <script>
-function claimOffer(description) {
-    document.getElementById('popupText').innerText = `You have claimed: "${description}" 🎉`;
-    document.getElementById('offerPopup').classList.remove('hidden');
-}
+    function claimOffer(offerName) {
+        document.getElementById("popupText").textContent = `You have claimed the offer: ${offerName}! 🎉`;
+        document.getElementById("offerPopup").classList.remove("hidden");
+    }
 
-function closePopup() {
-    document.getElementById('offerPopup').classList.add('hidden');
-}
+    function closePopup() {
+        document.getElementById("offerPopup").classList.add("hidden");
+    }
 </script>
+
+
+
+
 <!-- Section 3: Find Food Near You -->
 <!-- 🔍 Find Food Near Your Destination Section -->
 <div class="bg-white py-12 px-4">
@@ -309,132 +312,6 @@ function closePopup() {
 
 
   <!-- Section 4: Based on your last Order and Most Popular Foods -->
-<section class="max-w-7xl mx-auto my-12 px-4">
-  <div class="grid md:grid-cols-3 gap-8">
-
-    <!-- Left Column: Based on your last Order -->
-    <div class="md:col-span-1 bg-orange-100 text-orange-500 rounded-xl p-6 flex flex-col gap-6">
-      <h2 class="text-xl font-bold mb-2">Based on your last Order</h2>
-      <p class="text-gray-400 mb-4">Here are some dishes we think you'll love based on your previous orders.</p>
-
-      <!-- Food Item 1 -->
-      <div class="flex items-center gap-4 bg-black/60 rounded-lg p-3">
-        <img src="https://www.questserendipity.com/wp-content/uploads/2021/05/IMG_7654-01-1.jpg" alt="Crab Curry" class="w-20 h-20 rounded-lg object-cover" />
-        <div class="flex-1">
-          <h3 class="text-orange-200 font-semibold">Crab Curry</h3>
-          <p class="text-gray-400 text-sm">Spicy Sri Lankan crab curry cooked to perfection.</p>
-          <div class="flex items-center gap-1 text-yellow-400 mt-1">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.955a1 1 0 00.95.69h4.149c.969 0 1.371 1.24.588 1.81l-3.36 2.442a1 1 0 00-.364 1.118l1.286 3.955c.3.921-.755 1.688-1.54 1.118l-3.36-2.442a1 1 0 00-1.175 0l-3.36 2.442c-.785.57-1.84-.197-1.54-1.118l1.286-3.955a1 1 0 00-.364-1.118L2.075 9.382c-.783-.57-.38-1.81.588-1.81h4.149a1 1 0 00.95-.69l1.286-3.955z"/>
-            </svg>
-            <span class="text-sm text-gray-300">(120)</span>
-          </div>
-        </div>
-        
-      </div>
-
-      <!-- Food Item 2 -->
-      <div class="flex items-center gap-4 bg-black/60 rounded-lg p-3">
-        <img src="https://media.cntravellerme.com/photos/66cc5cb74871ab67bc593f1b/16:9/w_2560%2Cc_limit/ShoulldersByHarpos3.jpg" alt="Prawn Curry" class="w-20 h-20 rounded-lg object-cover" />
-        <div class="flex-1">
-          <h3 class="text-orange-200 font-semibold">Prawn Curry</h3>
-          <p class="text-gray-400 text-sm">Delicious prawn curry with rich coconut flavors.</p>
-          <div class="flex items-center gap-1 text-yellow-400 mt-1">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.955a1 1 0 00.95.69h4.149c.969 0 1.371 1.24.588 1.81l-3.36 2.442a1 1 0 00-.364 1.118l1.286 3.955c.3.921-.755 1.688-1.54 1.118l-3.36-2.442a1 1 0 00-1.175 0l-3.36 2.442c-.785.57-1.84-.197-1.54-1.118l1.286-3.955a1 1 0 00-.364-1.118L2.075 9.382c-.783-.57-.38-1.81.588-1.81h4.149a1 1 0 00.95-.69l1.286-3.955z"/>
-            </svg>
-            <span class="text-sm text-gray-300">(120)</span>
-          </div>
-        </div>
-       
-      </div>
-
-      <!-- Food Item 3 -->
-      <div class="flex items-center gap-4 bg-black/60 rounded-lg p-3">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIinqk2RYJHwwecJnb-2NLISes7BurXUB6Zw&sg" alt="Fish Ambul Thiyal" class="w-20 h-20 rounded-lg object-cover" />
-        <div class="flex-1">
-          <h3 class="text-orange-200 font-semibold">Fish Ambul Thiyal</h3>
-          <p class="text-gray-400 text-sm">Traditional sour fish curry from Sri Lanka.</p>
-          <div class="flex items-center gap-1 text-yellow-400 mt-1">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.955a1 1 0 00.95.69h4.149c.969 0 1.371 1.24.588 1.81l-3.36 2.442a1 1 0 00-.364 1.118l1.286 3.955c.3.921-.755 1.688-1.54 1.118l-3.36-2.442a1 1 0 00-1.175 0l-3.36 2.442c-.785.57-1.84-.197-1.54-1.118l1.286-3.955a1 1 0 00-.364-1.118L2.075 9.382c-.783-.57-.38-1.81.588-1.81h4.149a1 1 0 00.95-.69l1.286-3.955z"/>
-            </svg>
-            <span class="text-sm text-gray-300">(120)</span>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-
-
-    <!-- RIGHT COLUMN: Most Popular Foods -->
-    <div class="md:col-span-2 py-6 bg-green-50 rounded-xl flex flex-col gap-6 px-4">
-      <div class="text-center">
-        <h2 class="text-3xl font-bold text-green-900 mb-2">Most Popular Foods</h2>
-        <p class="text-green-700">Loved by locals and tourists — authentic Sri Lankan & Asian favorites!</p>
-      </div>
-
-      <div class="flex flex-col gap-4">
-
-        <!-- Food Item -->
-        <div class="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
-          <img src="https://media.cntravellerme.com/photos/66cc5cb74871ab67bc593f1b/16:9/w_2560%2Cc_limit/ShoulldersByHarpos3.jpg" alt="Prawn Curry" class="w-20 h-20 object-cover rounded-lg">
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-green-800">Sri Lankan Prawn Curry</h3>
-            <p class="text-sm text-gray-600">Juicy prawns simmered in coconut milk & spices</p>
-            <div class="text-yellow-500 text-sm">★★★★☆ (4.5)</div>
-          </div>
-          <span class="text-green-700 font-semibold">LKR 2,300</span>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
-          <img src="https://i0.wp.com/www.lavenderandlovage.com/wp-content/uploads/2016/05/Sri-Lankan-Egg-Hoppers-for-Breakfast.jpg?fit=1200%2C901&ssl=1" alt="Egg Hopper" class="w-20 h-20 object-cover rounded-lg">
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-green-800">Egg Hoppers (Appa)</h3>
-            <p class="text-sm text-gray-600">Crispy bowl-shaped pancakes with egg center</p>
-            <div class="text-yellow-500 text-sm">★★★★☆ (4.4)</div>
-          </div>
-          <span class="text-green-700 font-semibold">LKR 450</span>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
-          <img src="https://www.theflavorbender.com/wp-content/uploads/2018/03/Chicken-Kottu-Roti-6086.jpg" alt="Chicken Kottu" class="w-20 h-20 object-cover rounded-lg">
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-green-800">Chicken Kottu Roti</h3>
-            <p class="text-sm text-gray-600">Spicy chopped roti with chicken & vegetables</p>
-            <div class="text-yellow-500 text-sm">★★★★★ (4.8)</div>
-          </div>
-          <span class="text-green-700 font-semibold">LKR 1,200</span>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
-          <img src="https://www.onceuponachef.com/images/2023/12/Fried-Rice-Hero-12.jpg" alt="Fried Rice" class="w-20 h-20 object-cover rounded-lg">
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-green-800">Mixed Fried Rice</h3>
-            <p class="text-sm text-gray-600">Basmati rice with egg, chicken, and prawns</p>
-            <div class="text-yellow-500 text-sm">★★★★☆ (4.6)</div>
-          </div>
-          <span class="text-green-700 font-semibold">LKR 1,600</span>
-        </div>
-
-        <div class="bg-white rounded-lg shadow-md p-4 flex items-center gap-4">
-          <img src="https://www.hungrylankan.com/wp-content/uploads/2020/07/20200705_125604_compress10.jpg" alt="Devilled Chicken" class="w-20 h-20 object-cover rounded-lg">
-          <div class="flex-1">
-            <h3 class="text-lg font-bold text-green-800">Devilled Chicken</h3>
-            <p class="text-sm text-gray-600">Sweet & spicy stir-fried chicken chunks</p>
-            <div class="text-yellow-500 text-sm">★★★★☆ (4.3)</div>
-          </div>
-          <span class="text-green-700 font-semibold">LKR 1,400</span>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-  <!-- Section 5: Last Orders & Popular Foods -->
 <section class="max-w-7xl mx-auto my-12 px-4">
     <div class="grid md:grid-cols-3 gap-8">
 
@@ -744,7 +621,7 @@ function closePopup() {
     <div class="grid md:grid-cols-2 gap-6">
       <!-- Restaurant Partner -->
       <div class="relative rounded-lg overflow-hidden group">
-        <img src="{{ asset('images/home/restaurant-partner.jpg') }}" class="w-full h-64 object-cover opacity-80" alt="Restaurant Partner" />
+        <img src="https://www.hrcacademy.com/wp-content/uploads/2024/03/professional-cook.jpg" class="w-full h-64 object-cover opacity-80" alt="Restaurant Partner" />
         <div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black to-transparent">
           <h3 class="text-white text-xl font-bold">Become a Restaurant Partner</h3>
           <p class="text-white text-sm mb-4">Expand your business and reach more customers.</p>
@@ -754,7 +631,7 @@ function closePopup() {
 
       <!-- Rider -->
       <div class="relative rounded-lg overflow-hidden group">
-        <img src="{{ asset('images/home/rider.jpg') }}" class="w-full h-64 object-cover opacity-80" alt="Join as Rider" />
+        <img src="https://media.istockphoto.com/id/918839040/photo/delivery-guy.jpg?s=612x612&w=0&k=20&c=qYh6-ZhLfmbQyRMFpyAC3St7FCQuWu9wUuTzRYAFLz4=" class="w-full h-64 object-cover opacity-80" alt="Join as Rider" />
         <div class="absolute inset-0 p-6 flex flex-col justify-end bg-gradient-to-t from-black to-transparent">
           <h3 class="text-white text-xl font-bold">Join as a Rider</h3>
           <p class="text-white text-sm mb-4">Help us deliver with speed & care. Competitive pay awaits.</p>
@@ -764,9 +641,8 @@ function closePopup() {
     </div>
   </div>
 </section>
-
 <!-- Form Popup Modal -->
-<div id="formModal" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+<div id="formModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
   <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg relative">
     <button onclick="closeForm()" class="absolute top-3 right-4 text-xl text-gray-500 hover:text-orange-500">×</button>
     <h3 id="formTitle" class="text-xl font-bold text-orange-600 mb-4">Form Title</h3>
@@ -777,7 +653,7 @@ function closePopup() {
 </div>
 
 <!-- Confirmation Popup -->
-<div id="confirmationPopup" class="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+<div id="confirmationPopup" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
   <div class="bg-white p-6 rounded-lg text-center max-w-sm">
     <h3 class="text-xl font-bold text-orange-600 mb-2">Submission Successful</h3>
     <p class="text-gray-700">An email will be sent to you once your request is verified.</p>
@@ -785,14 +661,15 @@ function closePopup() {
   </div>
 </div>
 
-@push('scripts')
 <script>
   function openForm(type) {
+    const modal = document.getElementById("formModal");
     const form = document.getElementById("partnerForm");
     const title = document.getElementById("formTitle");
-    form.innerHTML = '';
 
-    if (type === 'restaurant') {
+    form.innerHTML = "";
+
+    if (type === "restaurant") {
       title.innerText = "Restaurant Partner Form";
       form.innerHTML = `
         <input required type="text" placeholder="Owner Name" class="w-full border px-4 py-2 rounded focus:outline-orange-500" />
@@ -802,7 +679,7 @@ function closePopup() {
         <input required type="text" placeholder="Location" class="w-full border px-4 py-2 rounded focus:outline-orange-500" />
         <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600">Submit</button>
       `;
-    } else if (type === 'rider') {
+    } else if (type === "rider") {
       title.innerText = "Rider Application Form";
       form.innerHTML = `
         <input required type="text" placeholder="Full Name" class="w-full border px-4 py-2 rounded focus:outline-orange-500" />
@@ -814,15 +691,21 @@ function closePopup() {
       `;
     }
 
-    document.getElementById("formModal").classList.remove("hidden");
+    
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
   }
 
   function closeForm() {
-    document.getElementById("formModal").classList.add("hidden");
+    const modal = document.getElementById("formModal");
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
   }
 
   function closeConfirmation() {
-    document.getElementById("confirmationPopup").classList.add("hidden");
+    const popup = document.getElementById("confirmationPopup");
+    popup.classList.remove("flex");
+    popup.classList.add("hidden");
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -830,13 +713,13 @@ function closePopup() {
       e.preventDefault();
       closeForm();
       setTimeout(() => {
-        document.getElementById("confirmationPopup").classList.remove("hidden");
+        const confirmation = document.getElementById("confirmationPopup");
+        confirmation.classList.remove("hidden");
+        confirmation.classList.add("flex");
       }, 300);
     });
   });
 </script>
-@endpush
 
-@include('components.footer')
 @endsection
 

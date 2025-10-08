@@ -1,14 +1,4 @@
 <x-admin.sidebar />
-<?php
-
-require_once '../../config/db.php';
-$orderId = isset($_GET['order_id']) ? (int)$_GET['order_id'] : 0;
-
-$stmt = $mysqli->prepare("SELECT name, price, quantity, created_at FROM order_items WHERE order_id = ?");
-$stmt->bind_param("i", $orderId);
-$stmt->execute();
-$result = $stmt->get_result();
-?>
 
 <!DOCTYPE html>
 <html>

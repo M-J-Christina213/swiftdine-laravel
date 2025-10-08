@@ -35,10 +35,7 @@ class Order extends Model
     /**
      * The restaurant associated with the order
      */
-    public function restaurant()
-    {
-        return $this->belongsTo(Restaurant::class);
-    }
+    // Removed duplicate restaurant method
 
     /**
      * The items in this order
@@ -55,4 +52,10 @@ class Order extends Model
     {
         return $this->hasOne(Payment::class);
     }
+
+    public function restaurant()
+{
+    return $this->belongsTo(Restaurant::class);
+}
+
 }

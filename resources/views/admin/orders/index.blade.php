@@ -24,8 +24,8 @@
         <thead class="bg-orange-100 text-orange-800 font-semibold">
             <tr>
                 <th class="p-3 border-b border-orange-300">Order ID</th>
-                <th class="p-3 border-b border-orange-300">User</th>
-                <th class="p-3 border-b border-orange-300">Restaurant</th>
+                <th class="p-3 border-b border-orange-300">Customer Name</th>
+                <th class="p-3 border-b border-orange-300">Delivery Adress</th>
                 <th class="p-3 border-b border-orange-300">Total Price (Rs)</th>
                 <th class="p-3 border-b border-orange-300">Status</th>
                 <th class="p-3 border-b border-orange-300">Created At</th>
@@ -36,9 +36,10 @@
             @forelse($orders as $order)
             <tr id="display_row_{{ $order->id }}" class="hover:bg-orange-50">
                 <td class="p-3 border-b border-gray-200">{{ $order->id }}</td>
-                <td class="p-3 border-b border-gray-200">{{ $order->user->name ?? 'Unknown' }}</td>
-                <td class="p-3 border-b border-gray-200">{{ $order->restaurant->name ?? 'Unknown' }}</td>
-                <td class="p-3 border-b border-gray-200">{{ number_format($order->total_price, 2) }}</td>
+                <td class="p-3 border-b border-gray-200">{{ $order->customer_name }}</td>
+                <td class="p-3 border-b border-gray-200">{{ $order->delivery_address }}</td>
+                <td class="p-3 border-b border-gray-200">{{ number_format($order->total, 2) }}</td>
+
                 <td class="p-3 border-b border-gray-200">
                     <span class="{{ $order->status == 'completed' ? 'text-green-600 font-semibold' : ($order->status == 'pending' ? 'text-yellow-600 font-semibold' : 'text-gray-600') }}">
                         {{ ucfirst($order->status) }}
