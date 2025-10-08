@@ -2,6 +2,17 @@
 
 @section('content')
 
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SwiftDine - Sri Lankan Food Journey</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
   <!-- Hero Banner -->
   <section class="relative bg-cover bg-center h-screen" 
     style="background-image: url('https://miro.medium.com/v2/resize:fit:1400/0*OuSIEprF8jIzBc4g');">
@@ -125,5 +136,6 @@
       @endforeach
     </div>
   </section>
+</body>
 
 @endsection

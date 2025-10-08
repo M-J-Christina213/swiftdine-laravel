@@ -1,6 +1,16 @@
 @extends('layouts.app') 
 
 @section('content')
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Browse Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
 <div class="max-w-7xl mx-auto p-6 flex flex-col lg:flex-row gap-6">
 
     <!-- Sidebar Static Categories -->
@@ -49,4 +59,5 @@
     </section>
 
 </div>
+</body>
 @endsection

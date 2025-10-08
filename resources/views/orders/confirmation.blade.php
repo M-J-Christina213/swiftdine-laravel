@@ -3,6 +3,16 @@
 @section('title', 'Order Confirmation - SwiftDine')
 
 @section('content')
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <title>Order Confirmation - SwiftDine</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
 <section class="relative h-60 bg-gradient-to-r from-orange-400 to-yellow-300 flex items-center justify-center text-white">
   <img src="/assets/images/banner_delivery.png" alt="Delivery" class="absolute inset-0 w-full h-full object-cover opacity-20"/>
   <h1 class="z-10 text-4xl font-bold">Your order is on its way</h1>
@@ -105,4 +115,5 @@
     </div>
   </div>
 </div>
+</body>
 @endsection

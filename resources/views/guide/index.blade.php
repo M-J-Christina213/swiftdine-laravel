@@ -4,6 +4,15 @@
 
   <!-- Food Guide Main Page -->
 
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Food Guide Sri Lanka</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
 
   <!-- Banner -->
   <section class="relative h-[400px] md:h-[500px] bg-cover bg-center" style="background-image: url('../../images/foodguide/foodguide.jpg');">
@@ -282,5 +291,5 @@
   </section>
 
 
-
+</body>
 @endsection

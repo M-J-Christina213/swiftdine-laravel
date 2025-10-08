@@ -4,6 +4,16 @@
 
 @section('content')
 
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title> Swiftdine </title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black font-poppins">
+
     <!-- Section 1: Hero full width -->
     <section
         class="relative bg-cover bg-center text-white w-full p-10 md:p-20 overflow-hidden flex flex-col md:flex-row items-center gap-10"
@@ -720,6 +730,7 @@
     });
   });
 </script>
+</body>
 
 @endsection
 
