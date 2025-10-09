@@ -557,6 +557,8 @@
     <h2 class="text-2xl font-bold text-orange-700 mb-1">What Locals & Tourists Say</h2>
     <p class="text-gray-700 mb-8">Hear from people who’ve experienced our service</p>
 
+
+    
     <div class="grid md:grid-cols-3 gap-6">
       <!-- Testimonial 1 -->
       <div class="bg-white p-5 rounded-lg shadow-md text-left">
